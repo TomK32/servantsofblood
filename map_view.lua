@@ -16,7 +16,6 @@ class "MapView" {
       for y = 0, tiles_y do
         tile = self.map:get(x+1,y+1)
         if tile then
-        print(tile)
           love.graphics.setColor( tile, 0, 0, 255 )
           love.graphics.rectangle('fill', x * self.tile_size.x, y * self.tile_size.y, self.tile_size.x, self.tile_size.y)
         end
