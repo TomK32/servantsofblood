@@ -29,5 +29,14 @@ class "MapView" {
     love.graphics.setColor(255,255,255,255)
     love.graphics.setFont(love.graphics.newFont(self.tile_size.x))
     love.graphics.print('X', self.cursor_position.x * self.tile_size.x, self.cursor_position.y * self.tile_size.y)
+  end,
+
+  moveCursor = function(self, offset)
+    if offset.x then
+      self.cursor_position.x = self.cursor_position.x + offset.x
+    end
+    if offset.y then
+      self.cursor_position.y = self.cursor_position.y + offset.y
+    end
   end
 }

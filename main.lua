@@ -22,7 +22,17 @@ function love.update(dt)
 end
 
 function love.keypressed(key, unicode)
-
+  if game_state.focus == 'map_view' then
+    if key == 'up' or key == 'k' then
+      gui_main.map_view:moveCursor({y = -1})
+    elseif key == 'down' or key == 'j' then
+      gui_main.map_view:moveCursor({y = 1})
+    elseif key == 'left' or key == 'h' then
+      gui_main.map_view:moveCursor({x = -1})
+    elseif key == 'right' or key == 'l' then
+      gui_main.map_view:moveCursor({x = 1})
+    end
+  end
 end
 
 function love.draw()
