@@ -6,6 +6,7 @@ class "Tile" {
 
   __init__ = function(self)
     self.shade = math.random(100)
+    self.entities = {}
   end,
 
   addEntity = function(self,entity)

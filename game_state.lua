@@ -17,7 +17,7 @@ class "GameState" {
     self.map = Map(25,20)
     self.map:randomize()
     self.workers = {}
-    for i=0, 5 do
+    for i=1, 3 do
       worker = self.worker_spawner:create()
       table.insert(self.workers, worker)
       self.map:place(worker)

@@ -12,10 +12,10 @@ class "Map" {
   end,
 
   randomize = function(self)
-    for x = 0, self.width do
+    for x = 1, self.width do
       table.insert(self.map, {})
-      for y = 0, self.height do
-        table.insert(self.map[x+1], Tile({}))
+      for y = 1, self.height do
+        table.insert(self.map[x], Tile())
       end
     end
   end,
@@ -23,7 +23,7 @@ class "Map" {
   place = function(self, entity)
     tile = self:getTile(entity.position)
     if tile then
-      tile:add(entity)
+      tile:addEntity(entity)
     end
   end,
 

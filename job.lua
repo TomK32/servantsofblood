@@ -10,6 +10,9 @@ class "Job" {
   __init__ = function(self, description, category)
     self.description = description
     self.category = category
+    self.position = {}
+    self.priority = 0
+    self.workers = {}
   end,
 
   -- places where this job happens, e.g. a marked area or a workshop
