@@ -2,8 +2,9 @@
 
 class "MapView" {
   map = nil,
-  display = {x = 0, y = 0, width = 320, height = 256},
-  tile_size = {x = 32, y = 32},
+  display = {x = 0, y = 0, width = 400, height = 320},
+  tile_size = {x = 16, y = 16},
+  cursor_position = { x = 16, y = 16 },
 
   __init__ = function(self, map)
     self.map = map
@@ -25,5 +26,8 @@ class "MapView" {
         end
       end
     end
+    love.graphics.setColor(255,255,255,255)
+    love.graphics.setFont(love.graphics.newFont(self.tile_size.x))
+    love.graphics.print('X', self.cursor_position.x * self.tile_size.x, self.cursor_position.y * self.tile_size.y)
   end
 }

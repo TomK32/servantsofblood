@@ -2,7 +2,7 @@
 
 class "JobStatusView" {
   jobs = nil,
-  display = {x = 400, y = 0, width = 100, height = 300},
+  display = {x = 430, y = 0, width = 100, height = 300},
 
   __init__ = function(self, jobs)
     self.jobs = jobs
