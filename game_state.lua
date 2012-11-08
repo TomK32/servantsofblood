@@ -17,7 +17,6 @@ class "GameState" {
   update = function(self)
     if #self.jobs < 10 and math.random(4) > 2 then
       table.insert(self.jobs, self.job_spawner:create())
-      print "new job"
     end
   end
 }

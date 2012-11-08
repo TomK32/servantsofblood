@@ -8,6 +8,8 @@ class "Job" {
   workers = {},
 
   __init__ = function(self, description, category)
+    self.description = description
+    self.category = category
   end,
 
   -- places where this job happens, e.g. a marked area or a workshop

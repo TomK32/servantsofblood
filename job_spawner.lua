@@ -11,6 +11,7 @@ class "JobSpawner" {
   end,
 
   create = function(self)
-    return self.jobs[math.random(1, #self.jobs)]
+    local tmp = self.jobs[math.random(1, #self.jobs)]
+    return Job(tmp.name, tmp.category)
   end
 }
