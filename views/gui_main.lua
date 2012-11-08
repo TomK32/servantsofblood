@@ -1,6 +1,7 @@
 
--- require('lib/LoveFrames/init')
-require('job_status_view')
+require('views/job_status_view')
+require('views/map_view')
+require('views/menu_view')
 
 class "GUIMain" {
   game_state = nil,

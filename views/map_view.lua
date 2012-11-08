@@ -4,13 +4,15 @@ class "MapView" {
   map = nil,
   display = {x = 0, y = 0, width = 400, height = 320},
   tile_size = {x = 16, y = 16},
-  cursor_position = { x = 16, y = 16 },
+  cursor_position = { x = 14, y = 11 },
 
   __init__ = function(self, map)
     self.map = map
   end,
 
-  draw = function(self)
+  draw = function(self, dt)
+    love.graphics.push()
+    love.graphics.translate(self.display.x, self.display.y)
     tiles_x = self.display.width / self.tile_size.x
     tiles_y = self.display.height / self.tile_size.y
     for x =1, tiles_x do
@@ -21,7 +23,9 @@ class "MapView" {
           love.graphics.rectangle('fill', x * self.tile_size.x, y * self.tile_size.y, self.tile_size.x, self.tile_size.y)
           if #tile.entities > 0 then
             love.graphics.setColor(200,200,200,255)
-            love.graphics.print( 'J', x * self.tile_size.x+4, y * self.tile_size.y)
+            if tile.entities[1].__name__ == 'Worker' then
+              love.graphics.print( ':)', x * self.tile_size.x+4, y * self.tile_size.y)
+            end
           end
         end
       end
@@ -29,11 +33,17 @@ class "MapView" {
 
     -- print cursor
     love.graphics.setColor(255,255,255,255)
-    love.graphics.setFont(love.graphics.newFont(self.tile_size.x-4))
+    love.graphics.setFont(love.graphics.newFont(self.tile_size.x-2))
     love.graphics.print('X', self.cursor_position.x * self.tile_size.x, self.cursor_position.y * self.tile_size.y)
 
     -- print cursor position
     love.graphics.print(self.cursor_position.x .. ':' .. self.cursor_position.y, self.tile_size.x+2, self.display.height)
+
+    tile = self.map:getTile(self.cursor_position)
+    if #tile.entities > 0 then
+      love.graphics.print(tile.entities[1].name, self.tile_size.x + 40, self.display.height)
+    end
+    love.graphics.pop()
   end,
 
   moveCursor = function(self, offset)
