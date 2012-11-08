@@ -18,22 +18,23 @@ function love.load()
 end
 
 function love.update(dt)
+  if game_state.focus == 'map_view' then
+    -- TODO prevent racing cursor
+    if love.keyboard.isDown('up', 'k') then
+      gui_main.map_view:moveCursor({y = -1})
+    elseif love.keyboard.isDown('down', 'j') then
+      gui_main.map_view:moveCursor({y = 1})
+    elseif love.keyboard.isDown('left', 'h') then
+      gui_main.map_view:moveCursor({x = -1})
+    elseif love.keyboard.isDown('right', 'l') then
+      gui_main.map_view:moveCursor({x = 1})
+    end
+  end
   game_state:update()
 end
 
 function love.keypressed(key, unicode)
-  if game_state.focus == 'map_view' then
-    if key == 'up' or key == 'k' then
-      gui_main.map_view:moveCursor({y = -1})
-    elseif key == 'down' or key == 'j' then
-      gui_main.map_view:moveCursor({y = 1})
-    elseif key == 'left' or key == 'h' then
-      gui_main.map_view:moveCursor({x = -1})
-    elseif key == 'right' or key == 'l' then
-      gui_main.map_view:moveCursor({x = 1})
-    end
-  end
-end
+ end
 
 function love.draw()
   gui_main:draw()
