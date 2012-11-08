@@ -7,6 +7,7 @@ require("game_state")
 require('gui_main')
 require('map_view')
 require('worker')
+require('worker_spawner')
 require('job')
 require('job_spawner')
 

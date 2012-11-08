@@ -1,4 +1,4 @@
-
+require('tile')
 
 class "Map" {
   width = 0,
@@ -11,19 +11,28 @@ class "Map" {
     self.map = {}
   end,
 
-  get = function(self, x, y)
-    if x == nil or y == nil then
-      return nil
-    end
-    return self.map[x][y]
-  end,
- 
   randomize = function(self)
     for x = 0, self.width do
       table.insert(self.map, {})
       for y = 0, self.height do
-        table.insert(self.map[x+1], math.random(63,90))
+        table.insert(self.map[x+1], Tile({}))
       end
     end
+  end,
+
+  place = function(self, entity)
+    tile = self:getTile(entity.position)
+    if tile then
+      tile:add(entity)
+    end
+  end,
+
+  getTile = function(self, position)
+    if self.map[position.x] then
+      if self.map[position.y] then
+        return self.map[position.x][position.y]
+      end
+    end
+    return false
   end
 }

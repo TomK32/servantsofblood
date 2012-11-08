@@ -5,14 +5,23 @@ class "GameState" {
   player = nil,
   jobs = nil,
   job_spawner = nil,
+  workers = nil,
+  worker_spawner = nil,
 
   __init__ = function(self)
     self.jobs = {}
     self.player = PlayerController()
     self.job_spawner = JobSpawner()
+    self.worker_spawner = WorkerSpawner()
     self.map = Map(30,30)
     self.map:randomize()
-  end,
+    self.workers = {}
+    for i=0, 5 do
+      worker = self.worker_spawner:create()
+      table.insert(self.workers, worker)
+      self.map:place(worker)
+    end
+   end,
 
   update = function(self)
     if #self.jobs < 10 and math.random(4) > 2 then
