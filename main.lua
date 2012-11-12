@@ -19,18 +19,22 @@ end
 
 function love.update(dt)
   if game_state.focus == 'map_view' then
-    -- TODO prevent racing cursor
     if love.keyboard.isDown('up', 'k', 'down', 'j', 'left', 'h', 'right', 'l') then
       if dt_since_last_move + dt > 0.1 then
         dt_since_last_move = 0
+        if love.keyboard.isDown('rshift', 'lshift') then
+          moves = 5
+        else
+          moves = 1
+        end
         if love.keyboard.isDown('up', 'k') then
-          gui_main.map_view:moveCursor({y = -1})
+          gui_main.map_view:moveCursor({y = -moves})
         elseif love.keyboard.isDown('down', 'j') then
-          gui_main.map_view:moveCursor({y = 1})
+          gui_main.map_view:moveCursor({y = moves})
         elseif love.keyboard.isDown('left', 'h') then
-          gui_main.map_view:moveCursor({x = -1})
+          gui_main.map_view:moveCursor({x = -moves})
         elseif love.keyboard.isDown('right', 'l') then
-          gui_main.map_view:moveCursor({x = 1})
+          gui_main.map_view:moveCursor({x = moves})
         end
       else
         dt_since_last_move = dt_since_last_move + dt
