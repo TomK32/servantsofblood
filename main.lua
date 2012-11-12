@@ -20,7 +20,27 @@ function love.load()
 end
 
 function love.update(dt)
-  if game_state.focus == 'inspector' then
+  if game_state.focus == 'jobs' then
+    if dt_since_last_move + dt > 0.1 then
+      dt_since_last_move = 0
+       num = false
+      if love.keyboard.isDown('up', 'kp8') then
+        num = -1
+      elseif love.keyboard.isDown('down', 'kp2') then
+        num = 1
+      elseif love.keyboard.isDown('pageup') then
+        num = 5
+      elseif love.keyboard.isDown('pagedown') then
+        num = -5
+      end
+      if (num) then
+        if love.keyboard.isDown('rshift', 'lshift') then
+          num = num * 5
+        end
+        gui_main.jobs_view:moveCursor(num)
+      end
+    end
+  elseif game_state.focus == 'inspector' then
     if love.keyboard.isDown('up', 'down','left', 'right', 'kp1', 'kp2', 'kp3', 'kp4', 'kp6', 'kp7', 'kp8', 'kp9') then
       if dt_since_last_move + dt > 0.1 then
         dt_since_last_move = 0
