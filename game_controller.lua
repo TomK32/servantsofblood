@@ -29,12 +29,17 @@ class "GameController" {
     self.game_state.focus = 'main'
   end,
 
+  jobs = function(self)
+    self.game_state.focus = 'jobs'
+  end,
+
   control_map = {
     keyboard = {
       on_press = {
         d = 'designate',
         k = 'inspect',
-        escape = 'escape'
+        escape = 'escape',
+        j = 'jobs'
       }
     }
   }

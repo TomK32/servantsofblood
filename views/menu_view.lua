@@ -6,7 +6,8 @@ class "MenuView" {
   focus = nil, -- what's the player's focus: a worker, job, workshop
   menu = {
     main = {
-      k = 'inspect'
+      k = 'Inspect',
+      j = 'Jobs'
     }
   },
   __init__ = function(self)
