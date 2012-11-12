@@ -20,7 +20,7 @@ function love.load()
 end
 
 function love.update(dt)
-  if game_state.focus == 'map_view' then
+  if game_state.focus == 'inspector' then
     if love.keyboard.isDown('up', 'k', 'down', 'j', 'left', 'h', 'right', 'l') then
       if dt_since_last_move + dt > 0.1 then
         dt_since_last_move = 0

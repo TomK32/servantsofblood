@@ -11,6 +11,15 @@ class "Tile" {
 
   addEntity = function(self,entity)
     table.insert(self.entities, entity)
+  end,
+  jobs = function (self)
+    local r = {}
+    for i, e in pairs(self.entities) do
+      if e.__name__ == 'Job' then
+        table.insert(r, e)
+      end
+    end
+    return r
   end
 }
 

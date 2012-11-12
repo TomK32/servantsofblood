@@ -6,6 +6,7 @@ class "Job" {
   position = nil,
   priority = 0,
   workers = {},
+  position = nil,
 
   __init__ = function(self, description, category)
     self.description = description

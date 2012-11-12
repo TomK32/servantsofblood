@@ -9,8 +9,11 @@ class "MapView" {
   __init__ = function(self, map)
     self.map = map
   end,
+  currentTile = function(self)
+    return self.map:getTile(self.cursor_position)
+  end,
 
-  draw = function(self, dt)
+  draw = function(self)
     love.graphics.push()
     love.graphics.translate(self.display.x, self.display.y)
     tiles_x = self.display.width / self.tile_size.x
@@ -25,6 +28,8 @@ class "MapView" {
             love.graphics.setColor(200,200,200,255)
             if tile.entities[1].__name__ == 'Worker' then
               love.graphics.print( ':)', x * self.tile_size.x+4, y * self.tile_size.y)
+            elseif #tile:jobs() > 0 then
+              love.graphics.print( '%', x * self.tile_size.x+2, y * self.tile_size.y)
             end
           end
         end
@@ -39,10 +44,6 @@ class "MapView" {
     -- print cursor position
     love.graphics.print(self.cursor_position.x .. ':' .. self.cursor_position.y, self.tile_size.x+2, self.display.height)
 
-    tile = self.map:getTile(self.cursor_position)
-    if #tile.entities > 0 then
-      love.graphics.print(tile.entities[1].name, self.tile_size.x + 40, self.display.height)
-    end
     love.graphics.pop()
   end,
 

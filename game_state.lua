@@ -7,7 +7,7 @@ class "GameState" {
   job_spawner = nil,
   workers = nil,
   worker_spawner = nil,
-  focus = 'map_view',
+  focus = 'main',
 
   __init__ = function(self)
     self.jobs = {}
@@ -22,12 +22,12 @@ class "GameState" {
       table.insert(self.workers, worker)
       self.map:place(worker)
     end
-   end,
-
-  update = function(self)
-    if #self.jobs < 10 and math.random(4) > 2 then
-      table.insert(self.jobs, self.job_spawner:create())
+    for i=1, 10 do
+      job = self.job_spawner:create()
+      job.position = {x = math.random(self.map.width), y = math.random(self.map.height)}
+      table.insert(self.jobs, job)
+      self.map:place(job)
     end
-  end
+  end,
 }
 

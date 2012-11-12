@@ -12,20 +12,29 @@ class "GameController" {
   end,
 
   designate = function(self)
-    if self.game_state.focus == 'map_view' then
+    if self.game_state.focus == 'main' then
       local tile = self.views.map_view:currentTile()
       local jobs = tile:jobs()
-      print(#jobs)
       if #jobs > 0 then
         print(tile)
       end
     end
   end,
 
+  inspect = function(self)
+    self.game_state.focus = 'inspector'
+  end,
+
+  escape = function(self)
+    self.game_state.focus = 'main'
+  end,
+
   control_map = {
     keyboard = {
       on_press = {
-        d = 'designate' -- function(self) if self.focus == 'map_view' then self:designate() end end
+        d = 'designate',
+        k = 'inspect',
+        escape = 'escape'
       }
     }
   }
