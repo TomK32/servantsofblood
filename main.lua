@@ -3,6 +3,7 @@
 require("lib/slither")
 require('table')
 require("player_controller")
+require("game_controller")
 require("game_state")
 require('views/gui_main')
 require('worker')
@@ -14,7 +15,8 @@ function love.load()
   game_state = GameState()
   gui_main = GUIMain(game_state)
   gui_main.map_view = MapView(game_state.map)
-  dt_since_last_move = 0
+  game_controller = GameController(game_state, gui_main)
+  dt_since_last_move = 1
 end
 
 function love.update(dt)
@@ -41,10 +43,17 @@ function love.update(dt)
       end
     end
  end
-  game_state:update()
+  game_controller:update()
 end
 
 function love.keypressed(key, unicode)
+  dt_since_last_move = 1 -- to allow rapid key hitting
+
+  local action = game_controller.control_map.keyboard.on_press[key]
+  if action then
+    if type(action) == "function" then action(game_controller) end
+    if type(game_controller[action]) == 'function' then game_controller[action](game_controller) end
+  end
 end
 
 function love.draw()

@@ -15,6 +15,7 @@ never run out of office supplies.
 
 * Tarn & Zach Adams for creating Dwarf Fortress
 * Zach Howardfor creating darkfort, a great inspration for getting started with LÖVE2d
+* Tanner Rogalsky for his streamlines control maps in LÖVE2d http://tannerrogalsky.com/blog/2012/04/06/control-maps-in-love2d/
 
 ## License
 
