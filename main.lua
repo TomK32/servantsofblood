@@ -24,9 +24,9 @@ function love.update(dt)
     if dt_since_last_move + dt > 0.1 then
       dt_since_last_move = 0
        num = false
-      if love.keyboard.isDown('up', 'kp8') then
+      if love.keyboard.isDown('up', '+') then
         num = -1
-      elseif love.keyboard.isDown('down', 'kp2') then
+      elseif love.keyboard.isDown('down', '-') then
         num = 1
       elseif love.keyboard.isDown('pageup') then
         num = 5
