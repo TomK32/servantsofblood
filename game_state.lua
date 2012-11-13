@@ -7,7 +7,7 @@ class "GameState" {
   job_spawner = nil,
   workers = nil,
   worker_spawner = nil,
-  focus = 'main',
+  focus = 'main', -- main, inspector, jobs
 
   __init__ = function(self)
     self.jobs = {}

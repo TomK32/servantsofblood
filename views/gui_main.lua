@@ -25,8 +25,9 @@ class "GUIMain" {
   end,
 
   draw = function(self)
-    self.map_view:draw()
+    self.map_view.draw_cursor = false
     if self.game_state.focus == 'inspector' then
+      self.map_view.draw_cursor = true
       self.inspector_view.entities = self.map_view:currentTile().entities
       self.inspector_view:draw()
     elseif self.game_state.focus == 'jobs' then
@@ -34,5 +35,6 @@ class "GUIMain" {
     else
       self.menu_view:draw()
     end
+    self.map_view:draw()
   end
 }

@@ -4,10 +4,12 @@ class "MapView" (View) {
   map = nil,
   tile_size = {x = 16, y = 16},
   cursor_position = { x = 14, y = 11 },
+  draw_cursor = false,
 
   __init__ = function(self, map)
     self.map = map
     self.display = {x = 0, y = 0, width = 400, height = 320}
+    self.draw_cursor = false
   end,
 
   currentTile = function(self)
@@ -34,14 +36,15 @@ class "MapView" (View) {
         end
       end
     end
+    if self.draw_cursor then
+      -- print cursor
+      love.graphics.setColor(255,255,255,255)
+      love.graphics.setFont(love.graphics.newFont(self.tile_size.x-2))
+      love.graphics.print('X', self.cursor_position.x * self.tile_size.x, self.cursor_position.y * self.tile_size.y)
 
-    -- print cursor
-    love.graphics.setColor(255,255,255,255)
-    love.graphics.setFont(love.graphics.newFont(self.tile_size.x-2))
-    love.graphics.print('X', self.cursor_position.x * self.tile_size.x, self.cursor_position.y * self.tile_size.y)
-
-    -- print cursor position
-    love.graphics.print(self.cursor_position.x .. ':' .. self.cursor_position.y, self.tile_size.x+2, self.display.height)
+      -- print cursor position
+      love.graphics.print(self.cursor_position.x .. ':' .. self.cursor_position.y, self.tile_size.x+2, self.display.height)
+    end
   end,
 
   moveCursor = function(self, offset)
