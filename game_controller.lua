@@ -22,15 +22,19 @@ class "GameController" {
   end,
 
   inspect = function(self)
-    self.game_state.focus = 'inspector'
+    self:setFocus('inspector')
   end,
 
   escape = function(self)
-    self.game_state.focus = 'main'
+    self:setFocus('main')
   end,
 
   jobs = function(self)
-    self.game_state.focus = 'jobs'
+    self:setFocus('jobs')
+  end,
+
+  setFocus = function(self, state)
+    self.game_state.focus = state
   end,
 
   control_map = {

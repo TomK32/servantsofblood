@@ -14,7 +14,6 @@ require('job_spawner')
 function love.load()
   game_state = GameState()
   gui_main = GUIMain(game_state)
-  gui_main.map_view = MapView(game_state.map)
   game_controller = GameController(game_state, gui_main)
   dt_since_last_move = 1
 end

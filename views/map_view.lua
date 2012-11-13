@@ -1,21 +1,20 @@
 
 
-class "MapView" {
+class "MapView" (View) {
   map = nil,
-  display = {x = 0, y = 0, width = 400, height = 320},
   tile_size = {x = 16, y = 16},
   cursor_position = { x = 14, y = 11 },
 
   __init__ = function(self, map)
     self.map = map
+    self.display = {x = 0, y = 0, width = 400, height = 320}
   end,
+
   currentTile = function(self)
     return self.map:getTile(self.cursor_position)
   end,
 
-  draw = function(self)
-    love.graphics.push()
-    love.graphics.translate(self.display.x, self.display.y)
+  drawContent = function(self)
     tiles_x = self.display.width / self.tile_size.x
     tiles_y = self.display.height / self.tile_size.y
     for x =1, tiles_x do
@@ -43,8 +42,6 @@ class "MapView" {
 
     -- print cursor position
     love.graphics.print(self.cursor_position.x .. ':' .. self.cursor_position.y, self.tile_size.x+2, self.display.height)
-
-    love.graphics.pop()
   end,
 
   moveCursor = function(self, offset)

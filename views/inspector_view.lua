@@ -1,18 +1,18 @@
 
-class "InspectorView" {
-  display = {x = 220, y = 0, width = 100, height = 300},
+class "InspectorView" (View) {
   cursor_row = 1,
+  entities = nil,
 
   __init__ = function(self)
+    self.display = {x = 220, y = 0, width = 100, height = 300}
     self.cursor_row = 1
+    self.entities = {}
   end,
 
-  draw = function(self, entities)
-    love.graphics.push()
-    love.graphics.translate(self.display.x, self.display.y)
+  drawContent = function(self)
     love.graphics.setColor(255,255,255,255)
     local currentEntity
-    for i, entity in ipairs(entities) do
+    for i, entity in ipairs(self.entities) do
       if self.cursor_row == i then
         currentEntity = entity
         love.graphics.print('>', self.display.x - 15, self.display.y + (i * 20))
@@ -29,6 +29,5 @@ class "InspectorView" {
     if currentEntity then
 
     end
-    love.graphics.pop()
   end
 }
