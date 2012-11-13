@@ -14,6 +14,7 @@ class "GUIMain" {
   inspector_view = nil,
   menu_view = nil,
   map_view = nil,
+  focused_view = nil,
 
   __init__ = function(self, game_state)
     self.game_state = game_state
@@ -22,9 +23,45 @@ class "GUIMain" {
     self.job_status_view = JobStatusView(game_state.jobs)
     self.inspector_view = InspectorView()
     self.map_view = MapView(game_state.map)
+    self.focused_view = nil
+  end,
+
+  setFocus = function(self, focus)
+    self.focused_view = nil
+    if focus == 'jobs' then
+      self.focused_view = self.jobs_view
+    elseif focus == 'inspector' then
+      self.focused_view = self.inspector_view
+    end
+  end,
+
+  update = function(self, dt)
+    if not self.focused_view then
+      return
+    end
+    if dt_since_last_move + dt > 0.1 then
+      dt_since_last_move = 0
+       num = false
+      if love.keyboard.isDown('up', '+') then
+        num = -1
+      elseif love.keyboard.isDown('down', '-') then
+        num = 1
+      elseif love.keyboard.isDown('pageup') then
+        num = 5
+      elseif love.keyboard.isDown('pagedown') then
+        num = -5
+      end
+      if (num) then
+        if love.keyboard.isDown('rshift', 'lshift') then
+          num = num * 5
+        end
+        gui_main.jobs_view:moveCursor(num)
+      end
+    end
   end,
 
   draw = function(self)
+    love.graphics.push()
     self.map_view.draw_cursor = false
     if self.game_state.focus == 'inspector' then
       self.map_view.draw_cursor = true
@@ -36,5 +73,6 @@ class "GUIMain" {
       self.menu_view:draw()
     end
     self.map_view:draw()
+    love.graphics.pop()
   end
 }

@@ -1,11 +1,11 @@
 require 'game_state'
 class "GameController" {
   game_state = nil,
-  views = nil,
+  gui_view = nil,
 
-  __init__ = function(self, game_state, views)
+  __init__ = function(self, game_state, gui_view)
     self.game_state = game_state
-    self.views = views
+    self.gui_view = gui_view
   end,
 
   update = function(self)
@@ -22,7 +22,9 @@ class "GameController" {
   end,
 
   inspect = function(self)
-    self:setFocus('inspector')
+    if self.game_state.focus == 'main' then
+      self:setFocus('inspector')
+    end
   end,
 
   escape = function(self)
@@ -30,11 +32,14 @@ class "GameController" {
   end,
 
   jobs = function(self)
-    self:setFocus('jobs')
+    if self.game_state.focus == 'main' then
+      self:setFocus('jobs')
+    end
   end,
 
-  setFocus = function(self, state)
-    self.game_state.focus = state
+  setFocus = function(self, focus)
+    self.game_state.focus = focus
+    self.gui_view:setFocus(focus)
   end,
 
   control_map = {

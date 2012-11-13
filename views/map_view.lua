@@ -39,7 +39,6 @@ class "MapView" (View) {
     if self.draw_cursor then
       -- print cursor
       love.graphics.setColor(255,255,255,255)
-      love.graphics.setFont(love.graphics.newFont(self.tile_size.x-2))
       love.graphics.print('X', self.cursor_position.x * self.tile_size.x, self.cursor_position.y * self.tile_size.y)
 
       -- print cursor position
