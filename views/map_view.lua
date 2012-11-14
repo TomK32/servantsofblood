@@ -57,12 +57,8 @@ class "MapView" (View) {
   end,
 
   moveTopLeft = function(self, offset)
-    if offset.x then
-      self.top_left.x = self.top_left.x + 3 * offset.x
-    end
-    if offset.y then
-      self.top_left.y = self.top_left.y + 3 * offset.y
-    end
+    self.top_left.x = self.top_left.x + 3 * offset.x
+    self.top_left.y = self.top_left.y + 3 * offset.y
     max_x = math.floor(self.map.height - self:tiles_x())
     if self.top_left.x < 0 then
       self.top_left.x = 0
@@ -75,15 +71,12 @@ class "MapView" (View) {
     elseif self.top_left.y > max_y then
       self.top_left.y = max_y + 1
     end
+    self:moveCursor({x = offset.x * 3, y = offset.y * 3})
   end,
 
   moveCursor = function(self, offset)
-    if offset.x then
-      self.cursor_position.x = self.cursor_position.x + offset.x
-    end
-    if offset.y then
-      self.cursor_position.y = self.cursor_position.y + offset.y
-    end
+    self.cursor_position.x = self.cursor_position.x + offset.x
+    self.cursor_position.y = self.cursor_position.y + offset.y
     if self.cursor_position.x < 1 then
       self.cursor_position.x = 1
     elseif self.cursor_position.x > self.map.width then

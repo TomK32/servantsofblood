@@ -29,14 +29,14 @@ function love.update(dt)
           moves = 1
         end
         movements = {
-          up    = { y = - moves },
-          kp8   = { y = - moves },
-          down  = { y =   moves },
-          kp2   = { y =   moves },
-          left  = { x = - moves },
-          kp4   = { x = - moves },
-          right = { x =   moves },
-          kp6   = { x =   moves },
+          up    = { x = 0, y = - moves },
+          kp8   = { x = 0, y = - moves },
+          down  = { x = 0, y =   moves },
+          kp2   = { x = 0, y =   moves },
+          left  = { x = - moves, y = 0 },
+          kp4   = { x = - moves, y = 0 },
+          right = { x =   moves, y = 0 },
+          kp6   = { x =   moves, y = 0 },
           kp7   = { x = - moves, y = - moves },
           kp9   = { x =   moves, y = - moves },
           kp1   = { x = - moves, y =   moves },
