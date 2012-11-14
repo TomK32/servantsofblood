@@ -63,10 +63,8 @@ end
 function love.keypressed(key, unicode)
   dt_since_last_move = 1 -- to allow rapid key hitting
 
-  local action = game_controller.control_map.keyboard.on_press[key]
-  if action then
-    if type(action) == "function" then action(game_controller) end
-    if type(game_controller[action]) == 'function' then game_controller[action](game_controller) end
+  if game_controller.active_controller then
+    game_controller.active_controller:keypressed(key, unicode)
   end
 end
 

@@ -6,7 +6,8 @@ class "MenuView" (ListView) {
   menu = {
     main = {
       k = 'Inspect',
-      j = 'Jobs'
+      j = 'Jobs',
+      q = 'Quit'
     }
   },
   __init__ = function(self)

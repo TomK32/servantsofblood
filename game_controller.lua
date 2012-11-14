@@ -1,11 +1,27 @@
 require 'game_state'
-class "GameController" {
+require 'controller'
+
+class "GameController" (Controller) {
   game_state = nil,
   gui_view = nil,
+  active_controller = self,
+
+  control_map = {
+    keyboard = {
+      on_press = {
+        d = 'designate',
+        k = 'inspect',
+        escape = 'escape',
+        j = 'jobs',
+        q = 'quit'
+      }
+    }
+  },
 
   __init__ = function(self, game_state, gui_view)
     self.game_state = game_state
     self.gui_view = gui_view
+    self.active_controller = self
   end,
 
   update = function(self)
@@ -31,6 +47,10 @@ class "GameController" {
     self:setFocus('main')
   end,
 
+  quit = function(self)
+    love.event.push('quit')
+  end,
+
   jobs = function(self)
     if self.game_state.focus == 'main' then
       self:setFocus('jobs')
@@ -40,16 +60,5 @@ class "GameController" {
   setFocus = function(self, focus)
     self.game_state.focus = focus
     self.gui_view:setFocus(focus)
-  end,
-
-  control_map = {
-    keyboard = {
-      on_press = {
-        d = 'designate',
-        k = 'inspect',
-        escape = 'escape',
-        j = 'jobs'
-      }
-    }
-  }
+  end
 }
