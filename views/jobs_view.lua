@@ -6,7 +6,6 @@ class "JobsView" (ListView) {
   __init__ = function(self, jobs)
     self.list_entries = jobs
     self.currentLine = 1
-    self.display = {x = 420, y = 0, width = 100, height = 300}
   end,
 
   drawLine = function(self, line_number, job)

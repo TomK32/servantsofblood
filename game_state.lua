@@ -14,7 +14,7 @@ class "GameState" {
     self.player = PlayerController()
     self.job_spawner = JobSpawner()
     self.worker_spawner = WorkerSpawner()
-    self.map = Map(25,20)
+    self.map = Map(50,50)
     self.map:randomize()
     self.workers = {}
     for i=1, 3 do

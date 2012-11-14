@@ -4,6 +4,7 @@ class "ListView" (View) {
   navigatable = true,
   list_entries = nil,
   currentLine = 1,
+  display = { x = 420, y = 0, width = 220, height = 300 },
 
   moveCursor = function(self, num)
     self.currentLine = self.currentLine + num

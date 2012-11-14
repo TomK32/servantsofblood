@@ -10,12 +10,10 @@ class "MenuView" (ListView) {
     }
   },
   __init__ = function(self)
-    self.display = {x = 430, y = 10, width = 100, height = 200}
     self.level = 'main'
   end,
 
   listEntries = function(self)
-    print(pairs(self.menu.main))
     return self.menu.main
   end,
 

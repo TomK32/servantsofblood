@@ -4,7 +4,6 @@ class "InspectorView" (ListView) {
   entities = nil,
 
   __init__ = function(self)
-    self.display = {x = 420, y = 0, width = 100, height = 300}
     self.cursor_row = 1
     self.entities = {}
   end,

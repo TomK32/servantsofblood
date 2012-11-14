@@ -18,11 +18,19 @@ class "GUIMain" {
 
   __init__ = function(self, game_state)
     self.game_state = game_state
+
+    ListView.display.x = love.graphics.getWidth() - ListView.display.width
+    ListView.display.height = love.graphics.getHeight()
+
     self.menu_view = MenuView()
     self.jobs_view = JobsView(game_state.jobs)
     self.job_status_view = JobStatusView(game_state.jobs)
     self.inspector_view = InspectorView()
+
     self.map_view = MapView(game_state.map)
+    self.map_view.display.width = ListView.display.x - 10
+    self.map_view.display.height = love.graphics.getHeight()
+
     self.focused_view = nil
   end,
 
