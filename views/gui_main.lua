@@ -29,7 +29,7 @@ class "GUIMain" {
 
     self.map_view = MapView(game_state.map)
     self.map_view.display.width = ListView.display.x - 10
-    self.map_view.display.height = love.graphics.getHeight()
+    self.map_view.display.height = love.graphics.getHeight() - 10
 
     self.focused_view = nil
   end,

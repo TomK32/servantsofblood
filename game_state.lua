@@ -8,8 +8,10 @@ class "GameState" {
   workers = nil,
   worker_spawner = nil,
   focus = 'main', -- main, inspector, jobs
+  running = false,
 
   __init__ = function(self)
+    self.running = false
     self.jobs = {}
     self.player = PlayerController()
     self.job_spawner = JobSpawner()

@@ -44,7 +44,7 @@ class "MapView" (View) {
           (self.cursor_position.y - self.top_left.y) * self.tile_size.y)
 
       -- print cursor position
-      love.graphics.print(self.cursor_position.x .. ':' .. self.cursor_position.y, self.tile_size.x+2, self.display.height)
+      love.graphics.print(self.cursor_position.x .. ':' .. self.cursor_position.y, self.tile_size.x+2, self.display.height - 10)
     end
   end,
 

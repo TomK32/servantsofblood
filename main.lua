@@ -19,6 +19,9 @@ function love.load()
 end
 
 function love.update(dt)
+  if game_state.running == false then
+    return
+  end
   gui_main:update(dt)
   if game_state.focus == 'inspector' or game_state.focus == 'main' then
     if love.keyboard.isDown('up', 'down','left', 'right', 'kp1', 'kp2', 'kp3', 'kp4', 'kp6', 'kp7', 'kp8', 'kp9') then
@@ -71,6 +74,10 @@ function love.draw()
   gui_main:draw()
   love.graphics.setColor(255,255,255,255)
   love.graphics.setFont(love.graphics.newFont(14))
-  love.graphics.print("FPS: "..love.timer.getFPS(), 10, 20)
+  if game_state.running then
+    love.graphics.print("FPS: "..love.timer.getFPS(), 10, 20)
+  else
+    love.graphics.print('PAUSED', 10, 20)
+  end
 end
 

@@ -23,7 +23,8 @@ class "GameController" (Controller) {
     self.game_state = game_state
     self.gui_view = gui_view
     self.active_controller = self
-    self.inspector_controller = InspectorController()
+    self.inspector_controller = InspectorController(gui_view.inspector_view)
+    self.control_map.keyboard.on_press[' '] = 'toggleGameStateRunning'
   end,
 
   update = function(self)
@@ -48,6 +49,10 @@ class "GameController" (Controller) {
 
   escape = function(self)
     self:setFocus('main')
+  end,
+
+  toggleGameStateRunning = function(self)
+    self.game_state.running = self.game_state.running == false
   end,
 
   quit = function(self)
