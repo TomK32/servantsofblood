@@ -56,7 +56,7 @@ class "MapView" (View) {
     return math.floor(self.display.height / self.tile_size.y)
   end,
 
-  moveTopLeft = function(self, offset)
+  moveTopLeft = function(self, offset, dontMoveCursor)
     self.top_left.x = self.top_left.x + 3 * offset.x
     self.top_left.y = self.top_left.y + 3 * offset.y
     max_x = math.floor(self.map.height - self:tiles_x())
@@ -71,10 +71,12 @@ class "MapView" (View) {
     elseif self.top_left.y > max_y then
       self.top_left.y = max_y + 1
     end
-    self:moveCursor({x = offset.x * 3, y = offset.y * 3})
+    if not dontMoveCursor then
+      self:moveCursor({x = offset.x * 3, y = offset.y * 3}, true)
+    end
   end,
 
-  moveCursor = function(self, offset)
+  moveCursor = function(self, offset, dontMoveTopLeft)
     self.cursor_position.x = self.cursor_position.x + offset.x
     self.cursor_position.y = self.cursor_position.y + offset.y
     if self.cursor_position.x < 1 then
@@ -87,15 +89,17 @@ class "MapView" (View) {
     elseif self.cursor_position.y > self.map.height then
       self.cursor_position.y = self.map.height
     end
-    if self.cursor_position.x - 3 < self.top_left.x then
-      self:moveTopLeft({x = - 1})
-    elseif self.cursor_position.x + 3 > self.top_left.x + self:tiles_x() then
-      self:moveTopLeft({x = 1})
-    end
-    if self.cursor_position.y - 3 < self.top_left.y then
-      self:moveTopLeft({y = - 1})
-    elseif self.cursor_position.y + 3 > self.top_left.y + self:tiles_y() then
-      self:moveTopLeft({y = 1})
+    if not dontMoveTopLeft then
+      if self.cursor_position.x - 3 < self.top_left.x then
+        self:moveTopLeft({x = - 1, y = 0}, true)
+      elseif self.cursor_position.x + 3 > self.top_left.x + self:tiles_x() then
+        self:moveTopLeft({x = 1, y = 0}, true)
+      end
+      if self.cursor_position.y - 3 < self.top_left.y then
+        self:moveTopLeft({x = 0, y = - 1}, true)
+      elseif self.cursor_position.y + 3 > self.top_left.y + self:tiles_y() then
+        self:moveTopLeft({x = 0, y = 1}, true)
+      end
     end
   end
 }
