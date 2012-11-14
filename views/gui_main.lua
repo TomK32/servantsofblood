@@ -36,26 +36,27 @@ class "GUIMain" {
   end,
 
   update = function(self, dt)
-    if not self.focused_view then
-      return
-    end
-    if dt_since_last_move + dt > 0.1 then
-      dt_since_last_move = 0
-       num = false
-      if love.keyboard.isDown('up', '+') then
-        num = -1
-      elseif love.keyboard.isDown('down', '-') then
-        num = 1
-      elseif love.keyboard.isDown('pageup') then
-        num = 5
-      elseif love.keyboard.isDown('pagedown') then
-        num = -5
-      end
-      if (num) then
-        if love.keyboard.isDown('rshift', 'lshift') then
-          num = num * 5
+    if self.focused_view and self.focused_view.navigatable then
+      if dt_since_last_move + dt > 0.1 then
+        if love.keyboard.isDown('+', '-', 'pageup', 'pagedown') then
+          dt_since_last_move = 0
         end
-        gui_main.jobs_view:moveCursor(num)
+        num = false
+        if love.keyboard.isDown('+') then
+          num = -1
+        elseif love.keyboard.isDown('-') then
+          num = 1
+        elseif love.keyboard.isDown('pageup') then
+          num = 5
+        elseif love.keyboard.isDown('pagedown') then
+          num = -5
+        end
+        if (num) then
+          if love.keyboard.isDown('rshift', 'lshift') then
+            num = num * 5
+          end
+          self.focused_view:moveCursor(num)
+        end
       end
     end
   end,
@@ -65,7 +66,7 @@ class "GUIMain" {
     self.map_view.draw_cursor = false
     if self.game_state.focus == 'inspector' then
       self.map_view.draw_cursor = true
-      self.inspector_view.entities = self.map_view:currentTile().entities
+      self.inspector_view.list_entries = self.map_view:currentTile().entities
       self.inspector_view:draw()
     elseif self.game_state.focus == 'jobs' then
       self.jobs_view:draw()

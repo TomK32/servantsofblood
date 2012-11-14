@@ -23,7 +23,6 @@ function love.update(dt)
   if game_state.focus == 'inspector' then
     if love.keyboard.isDown('up', 'down','left', 'right', 'kp1', 'kp2', 'kp3', 'kp4', 'kp6', 'kp7', 'kp8', 'kp9') then
       if dt_since_last_move + dt > 0.1 then
-        dt_since_last_move = 0
         if love.keyboard.isDown('rshift', 'lshift') then
           moves = 5
         else
@@ -45,6 +44,7 @@ function love.update(dt)
         }
         for key, m in pairs(movements) do
           if love.keyboard.isDown(key) then
+            dt_since_last_move = 0
             gui_main.map_view:moveCursor(m)
           end
         end

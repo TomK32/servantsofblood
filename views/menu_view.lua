@@ -1,5 +1,5 @@
 
-class "MenuView" (View) {
+class "MenuView" (ListView) {
   lineHeight = 16,
   level = nil, -- main, jobs, other levels
   focus = nil, -- what's the player's focus: a worker, job, workshop
@@ -14,14 +14,12 @@ class "MenuView" (View) {
     self.level = 'main'
   end,
 
-  drawContent = function(self)
-    for key, name in pairs(self.menu[self.level]) do
-      self:drawAction(key, name)
-      love.graphics.translate(0, self.lineHeight)
-    end
+  listEntries = function(self)
+    print(pairs(self.menu.main))
+    return self.menu.main
   end,
 
-  drawAction = function(self, key, description)
+  drawLine = function(self, key, description)
     love.graphics.setColor(100,255,100,255)
     love.graphics.print(key, 0, 0)
     love.graphics.setColor(255,255,255,255)
