@@ -1,5 +1,6 @@
 require 'game_state'
 require 'controller'
+require 'inspector_controller'
 
 class "GameController" (Controller) {
   game_state = nil,
@@ -22,6 +23,7 @@ class "GameController" (Controller) {
     self.game_state = game_state
     self.gui_view = gui_view
     self.active_controller = self
+    self.inspector_controller = InspectorController()
   end,
 
   update = function(self)
@@ -41,6 +43,7 @@ class "GameController" (Controller) {
     if self.game_state.focus == 'main' then
       self:setFocus('inspector')
     end
+    self.active_controller = self.inspector_controller
   end,
 
   escape = function(self)

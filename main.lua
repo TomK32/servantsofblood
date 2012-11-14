@@ -62,7 +62,6 @@ end
 
 function love.keypressed(key, unicode)
   dt_since_last_move = 1 -- to allow rapid key hitting
-
   if game_controller.active_controller then
     game_controller.active_controller:keypressed(key, unicode)
   end
