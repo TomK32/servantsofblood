@@ -4,7 +4,7 @@ class "MapView" (View) {
   map = nil,
   tile_size = {x = 16, y = 16},
   cursor_position = { x = 14, y = 11 },
-  top_left = { x = 1, y = 1 },
+  top_left = { x = 0, y = 0 }, -- offset
   draw_cursor = false,
 
   __init__ = function(self, map)
@@ -40,11 +40,20 @@ class "MapView" (View) {
     if self.draw_cursor then
       -- print cursor
       love.graphics.setColor(255,255,255,255)
-      love.graphics.print('X', self.cursor_position.x * self.tile_size.x, self.cursor_position.y * self.tile_size.y)
+      love.graphics.print('X', (self.cursor_position.x - self.top_left.x) * self.tile_size.x,
+          (self.cursor_position.y - self.top_left.y) * self.tile_size.y)
 
       -- print cursor position
       love.graphics.print(self.cursor_position.x .. ':' .. self.cursor_position.y, self.tile_size.x+2, self.display.height)
     end
+  end,
+
+  tiles_x = function(self)
+    return math.floor(self.display.width / self.tile_size.x)
+  end,
+
+  tiles_y = function(self)
+    return math.floor(self.display.height / self.tile_size.y)
   end,
 
   moveTopLeft = function(self, offset)
@@ -54,19 +63,20 @@ class "MapView" (View) {
     if offset.y then
       self.top_left.y = self.top_left.y + 3 * offset.y
     end
-    max_x = math.floor(self.map.height - self.display.width / self.tile_size.x)
-    if self.top_left.x < 1 then
-      self.top_left.x = 1
+    max_x = math.floor(self.map.height - self:tiles_x())
+    if self.top_left.x < 0 then
+      self.top_left.x = 0
     elseif self.top_left.x > max_x then
-      self.top_left.x = max_x
+      self.top_left.x = max_x + 1
     end
-    max_y = math.floor(self.map.height - self.display.height / self.tile_size.y)
-    if self.top_left.y < 1 then
-      self.top_left.y = 1
+    max_y = math.floor(self.map.height - self:tiles_y())
+    if self.top_left.y < 0 then
+      self.top_left.y = 0
     elseif self.top_left.y > max_y then
-      self.top_left.y = max_y
+      self.top_left.y = max_y + 1
     end
   end,
+
   moveCursor = function(self, offset)
     if offset.x then
       self.cursor_position.x = self.cursor_position.x + offset.x
@@ -83,6 +93,16 @@ class "MapView" (View) {
       self.cursor_position.y = 1
     elseif self.cursor_position.y > self.map.height then
       self.cursor_position.y = self.map.height
+    end
+    if self.cursor_position.x - 3 < self.top_left.x then
+      self:moveTopLeft({x = - 1})
+    elseif self.cursor_position.x + 3 > self.top_left.x + self:tiles_x() then
+      self:moveTopLeft({x = 1})
+    end
+    if self.cursor_position.y - 3 < self.top_left.y then
+      self:moveTopLeft({y = - 1})
+    elseif self.cursor_position.y + 3 > self.top_left.y + self:tiles_y() then
+      self:moveTopLeft({y = 1})
     end
   end
 }
