@@ -6,6 +6,10 @@ class "ListView" (View) {
   currentLine = 1,
   display = { x = 420, y = 0, width = 220, height = 300 },
 
+  currentEntry = function(self)
+    return self.list_entries[self.currentLine]
+  end,
+
   moveCursor = function(self, num)
     self.currentLine = self.currentLine + num
     if (self.currentLine < 1) then
@@ -16,6 +20,10 @@ class "ListView" (View) {
   end,
 
   drawContent = function(self)
+    self:drawList()
+  end,
+
+  drawList = function(self)
     love.graphics.push()
     local list = {}
     if type(self.listEntries) == 'function' then
@@ -29,8 +37,7 @@ class "ListView" (View) {
     end
     love.graphics.pop()
     if self.currentLine and #list > 0 then
-      love.graphics.translate(0, self.currentLine * self.line_height)
-      love.graphics.print('>', 0, 0)
+      love.graphics.print('>', 0, self.currentLine * self.line_height)
     end
   end
 }
