@@ -1,4 +1,4 @@
-
+require 'entities/ground'
 
 class "Tile" {
   entities = {},
@@ -7,6 +7,9 @@ class "Tile" {
   __init__ = function(self)
     self.shade = math.random(100)
     self.entities = {}
+    if math.random() > 0.2 then
+      table.insert(self.entities, Ground())
+    end
   end,
 
   addEntity = function(self,entity)

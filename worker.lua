@@ -16,6 +16,10 @@ class "Worker" {
     if not self.jobs.includes(job) then
       table.insert(self.jobs, job)
     end
+  end,
+
+  to_s = function(self)
+    return self.name
   end
 }
 

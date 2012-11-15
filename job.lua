@@ -26,6 +26,10 @@ class "Job" {
       table.insert(self.workers, worker)
       worker.addJob(self)
     end
+  end,
+
+  to_s = function(self)
+    return self.description
   end
 }
 
