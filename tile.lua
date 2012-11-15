@@ -15,20 +15,20 @@ class "Tile" {
   addEntity = function(self,entity)
     table.insert(self.entities, entity)
   end,
-  entitiesByType = function (self, t)
+  entitiesByType = function (self, klass)
     local r = {}
     for i, e in pairs(self.entities) do
-      if e.__name__ == t then
+      if issubclass(e.__class__, klass) then
         table.insert(r, e)
       end
     end
     return r
   end,
   jobs = function(self)
-    return self:entitiesByType('Job')
+    return self:entitiesByType(Job)
   end,
   workers = function(self)
-    return self:entitiesByType('Worker')
+    return self:entitiesByType(Worker)
   end
 }
 
