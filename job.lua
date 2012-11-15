@@ -1,15 +1,15 @@
 
 
 class "Job" {
-  description = nil,
+  text = nil,
   category = nil,
   position = nil,
   priority = 0,
   workers = {},
   position = nil,
 
-  __init__ = function(self, description, category)
-    self.description = description
+  __init__ = function(self, text, category)
+    self.text = text
     self.category = category
     self.position = {}
     self.priority = 0
@@ -29,7 +29,11 @@ class "Job" {
   end,
 
   to_s = function(self)
-    return self.description
+    return self.text
+  end,
+
+  description = function(self)
+    return self.text .. ' is a tough job'
   end
 }
 

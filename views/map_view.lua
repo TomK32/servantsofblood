@@ -28,7 +28,7 @@ class "MapView" (View) {
           love.graphics.rectangle('fill', x * self.tile_size.x, y * self.tile_size.y, self.tile_size.x, self.tile_size.y)
           if #tile.entities > 0 then
             love.graphics.setColor(200,200,200,255)
-            if tile.entities[1].__name__ == 'Worker' then
+            if #tile:workers() > 0 then
               love.graphics.print( ':)', x * self.tile_size.x+4, y * self.tile_size.y)
             elseif #tile:jobs() > 0 then
               love.graphics.print( '%', x * self.tile_size.x+2, y * self.tile_size.y)

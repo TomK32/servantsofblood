@@ -20,6 +20,10 @@ class "Worker" {
 
   to_s = function(self)
     return self.name
+  end,
+
+  description = function(self)
+    return self.name .. ' has ' .. #self.jobs .. ' jobs'
   end
 }
 
