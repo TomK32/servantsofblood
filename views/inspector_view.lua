@@ -1,11 +1,12 @@
 require('views/detail_menu_view')
 
-class "InspectorView" (ListView) {
+InspectorView = class("InspectorView", ListView)
+InspectorView:include({
   entities = nil,
   details = false,
   details_menu_view = nil,
 
-  __init__ = function(self)
+  initialize = function(self)
     self.entities = {}
     self.details = false
     self.details_menu_view = DetailMenuView(self.details_menu)
@@ -42,4 +43,4 @@ class "InspectorView" (ListView) {
       love.graphics.print(entity:to_s(), 20, 0)
     end
   end
-}
+})

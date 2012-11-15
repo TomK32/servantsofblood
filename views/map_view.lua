@@ -1,13 +1,13 @@
 
-
-class "MapView" (View) {
+MapView = class("MapView", View)
+MapView:include({
   map = nil,
   tile_size = {x = 16, y = 16},
   cursor_position = { x = 14, y = 11 },
   top_left = { x = 0, y = 0 }, -- offset
   draw_cursor = false,
 
-  __init__ = function(self, map)
+  initialize = function(self, map)
     self.map = map
     self.display = {x = 10, y = 10, width = 100, height = 320}
     self.draw_cursor = false
@@ -102,4 +102,4 @@ class "MapView" (View) {
       end
     end
   end
-}
+})

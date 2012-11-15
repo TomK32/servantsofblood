@@ -1,6 +1,7 @@
 require('map')
 
-class "GameState" {
+GameState = class("GameState")
+GameState:include({
   map = nil,
   player = nil,
   jobs = nil,
@@ -10,7 +11,7 @@ class "GameState" {
   focus = 'main', -- main, inspector, jobs
   running = false,
 
-  __init__ = function(self)
+  initialize = function(self)
     self.running = false
     self.jobs = {}
     self.player = PlayerController()
@@ -31,5 +32,4 @@ class "GameState" {
       self.map:place(job)
     end
   end,
-}
-
+})

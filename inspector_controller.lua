@@ -1,4 +1,5 @@
-class "InspectorController" (Controller) {
+InspectorController = class("InspectorController", Controller)
+InspectorController:include({
   inspector_view = nil,
 
   control_map = {
@@ -9,7 +10,7 @@ class "InspectorController" (Controller) {
     }
   },
 
-  __init__ = function(self, inspector_view)
+  initialize = function(self, inspector_view)
     self.control_map.keyboard.on_press['return'] = 'selectEntity'
     self.inspector_view = inspector_view
   end,
@@ -26,4 +27,4 @@ class "InspectorController" (Controller) {
       self.inspector_view.details = false
     end
   end
-}
+})

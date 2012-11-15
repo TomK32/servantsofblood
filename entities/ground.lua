@@ -1,8 +1,9 @@
 
-class "Ground" {
+Entities.Ground = class("Ground")
+Entities.Ground:include({
   name = 'Ground',
 
-  __init__ = function(self)
+  initialize = function(self)
     self.name = 'Ground'
   end,
 
@@ -13,4 +14,4 @@ class "Ground" {
   description = function(self)
     return self.name
   end
-}
+})

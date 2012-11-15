@@ -1,5 +1,6 @@
 
-class "ListView" (View) {
+ListView = class("ListView", View)
+ListView:include({
   line_height = 20,
   navigatable = true,
   list_entries = nil,
@@ -40,4 +41,4 @@ class "ListView" (View) {
       love.graphics.print('>', 0, self.current_line * self.line_height)
     end
   end
-}
+})

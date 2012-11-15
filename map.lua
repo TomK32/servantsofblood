@@ -1,11 +1,9 @@
 require('tile')
 
-class "Map" {
-  width = 0,
-  height = 0,
-  map = {},
+Map = class("Map")
+Map:include({
 
-  __init__ = function(self, width, height)
+  initialize = function(self, width, height)
     self.width = width
     self.height = height
     self.map = {}
@@ -35,4 +33,4 @@ class "Map" {
     end
     return false
   end
-}
+})

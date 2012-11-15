@@ -1,9 +1,10 @@
 
 require('views/list_view')
 
-class "JobsView" (ListView) {
+JobsView = class("JobsView", ListView)
+JobsView:include({
 
-  __init__ = function(self, jobs)
+  initialize = function(self, jobs)
     self.list_entries = jobs
     self.currentLine = 1
   end,
@@ -12,5 +13,4 @@ class "JobsView" (ListView) {
     love.graphics.setColor(255,255,255,255)
     love.graphics.print(job.description, 20, 0)
   end
-}
-
+})

@@ -1,5 +1,6 @@
 
-class "MenuView" (ListView) {
+MenuView = class("MenuView", ListView)
+MenuView:include({
   lineHeight = 16,
   level = nil, -- main, jobs, other levels
   focus = nil, -- what's the player's focus: a worker, job, workshop
@@ -11,7 +12,7 @@ class "MenuView" (ListView) {
       q = 'Quit'
     }
   },
-  __init__ = function(self, menu)
+  initialize = function(self, menu)
     self.level = 'main'
     if menu then
       self.menu = menu
@@ -38,5 +39,4 @@ class "MenuView" (ListView) {
     love.graphics.setColor(255,255,255,255)
     love.graphics.print(description, 20, 0)
   end
-}
-
+})

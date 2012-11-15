@@ -1,12 +1,13 @@
 
 
-class "Worker" {
+Worker = class("Worker")
+Worker:include({
   name = nil,
   currentJob = nil,
   jobs = {},
   position = {x = 1, y = 1, z = 1},
 
-  __init__ = function(self, name, position)
+  initialize = function(self, name, position)
     self.name = name
     self.jobs = {}
     self.position = position
@@ -25,5 +26,4 @@ class "Worker" {
   description = function(self)
     return self.name .. ' has ' .. #self.jobs .. ' jobs'
   end
-}
-
+})

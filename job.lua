@@ -1,6 +1,7 @@
 
 
-class "Job" {
+Job = class("Job")
+Job:include({
   text = nil,
   category = nil,
   position = nil,
@@ -8,7 +9,7 @@ class "Job" {
   workers = {},
   position = nil,
 
-  __init__ = function(self, text, category)
+  initialize = function(self, text, category)
     self.text = text
     self.category = category
     self.position = {}
@@ -35,5 +36,4 @@ class "Job" {
   description = function(self)
     return self.text .. ' is a tough job'
   end
-}
-
+})

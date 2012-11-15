@@ -1,10 +1,9 @@
 
-require("lib/slither")
 
-class "PlayerController" {
+PlayerController = class("PlayerController")
+PlayerController:include({
 
   tasks = nil,
-  __init__ = function(self)
+  initialize = function(self)
   end
-}
-
+})

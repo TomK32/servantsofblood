@@ -1,14 +1,18 @@
+if not Entities then
+  Entities = {}
+end
 require 'entities/ground'
 
-class "Tile" {
+Tile = class("Tile")
+Tile:include({
   entities = {},
   shade = nil,
 
-  __init__ = function(self)
+  initialize = function(self)
     self.shade = math.random(100)
     self.entities = {}
     if math.random() > 0.2 then
-      table.insert(self.entities, Ground())
+      table.insert(self.entities, Entities.Ground())
     end
   end,
 
@@ -18,7 +22,7 @@ class "Tile" {
   entitiesByType = function (self, klass)
     local r = {}
     for i, e in pairs(self.entities) do
-      if issubclass(e.__class__, klass) then
+      if subclassOf(e.__class__, klass) then
         table.insert(r, e)
       end
     end
@@ -30,5 +34,4 @@ class "Tile" {
   workers = function(self)
     return self:entitiesByType(Worker)
   end
-}
-
+})

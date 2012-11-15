@@ -1,6 +1,6 @@
 -- (C) 2012 Thomas R. Koll, <info@ananasblau.com>
 -- Fortress Middle Management Services
-require("lib/slither")
+require("lib/middleclass")
 require('table')
 require("player_controller")
 require("game_controller")

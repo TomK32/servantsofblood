@@ -1,4 +1,6 @@
-class "Controller" {
+
+Controller = class("Controller")
+Controller:include({
   control_map = {},
 
   keypressed = function(self, key, unicode)
@@ -11,4 +13,4 @@ class "Controller" {
       end
     end
   end
-}
+})

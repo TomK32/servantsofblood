@@ -6,7 +6,8 @@ require('views/map_view')
 require('views/menu_view')
 require('views/inspector_view')
 
-class "GUIMain" {
+GUIMain = class("GUIMain")
+GUIMain:include({
   game_state = nil,
   map_view = nil,
   job_status_view = nil,
@@ -16,7 +17,7 @@ class "GUIMain" {
   map_view = nil,
   focused_view = nil,
 
-  __init__ = function(self, game_state)
+  initialize = function(self, game_state)
     self.game_state = game_state
 
     ListView.display.x = love.graphics.getWidth() - ListView.display.width
@@ -87,4 +88,4 @@ class "GUIMain" {
     self.map_view:draw()
     love.graphics.pop()
   end
-}
+})

@@ -1,11 +1,12 @@
 
 
-class "JobStatusView" (View) {
+JobStatusView = class("JobStatusView", View)
+JobStatusView:include({
 
-  __init__ = function(self)
+  initialize = function(self)
   end,
 
   draw = function(self, job)
     -- TODO
   end
-}
+})

@@ -2,10 +2,11 @@ require 'game_state'
 require 'controller'
 require 'inspector_controller'
 
-class "GameController" (Controller) {
+
+GameController = class("GameController", Controller)
+GameController:include({
   game_state = nil,
   gui_view = nil,
-  active_controller = self,
 
   control_map = {
     keyboard = {
@@ -19,7 +20,7 @@ class "GameController" (Controller) {
     }
   },
 
-  __init__ = function(self, game_state, gui_view)
+  initialize = function(self, game_state, gui_view)
     self.game_state = game_state
     self.gui_view = gui_view
     self.active_controller = self
@@ -69,4 +70,4 @@ class "GameController" (Controller) {
     self.game_state.focus = focus
     self.gui_view:setFocus(focus)
   end
-}
+})

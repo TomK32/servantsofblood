@@ -1,10 +1,11 @@
 
-class "WorkerSpawner" {
+WorkerSpawner = class("WorkerSpawner")
+WorkerSpawner:include({
 
   first_names = {'Amot','Bitan','Calot', 'Difnatan'},
   last_names = {'Zok', 'Yulkomnek', 'Xixik', 'Weikok'},
 
-  __init__ = function(self)
+  initialize = function(self)
   end,
 
   create = function(self)
@@ -15,4 +16,4 @@ class "WorkerSpawner" {
     return (self.first_names[math.random(#self.first_names)] .. ' ' ..
       self.last_names[math.random(#self.last_names)] )
   end
-}
+})
