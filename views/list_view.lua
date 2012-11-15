@@ -3,19 +3,19 @@ class "ListView" (View) {
   line_height = 20,
   navigatable = true,
   list_entries = nil,
-  currentLine = 1,
+  current_line = 1,
   display = { x = 420, y = 0, width = 220, height = 300 },
 
   currentEntry = function(self)
-    return self.list_entries[self.currentLine]
+    return self.list_entries[self.current_line]
   end,
 
   moveCursor = function(self, num)
-    self.currentLine = self.currentLine + num
-    if (self.currentLine < 1) then
-      self.currentLine = #self.list_entries
-    elseif (self.currentLine > #self.list_entries) then
-      self.currentLine = 1
+    self.current_line = self.current_line + num
+    if (self.current_line < 1) then
+      self.current_line = #self.list_entries
+    elseif (self.current_line > #self.list_entries) then
+      self.current_line = 1
     end
   end,
 
@@ -36,8 +36,8 @@ class "ListView" (View) {
       self:drawLine(i, line)
     end
     love.graphics.pop()
-    if self.currentLine and #list > 0 then
-      love.graphics.print('>', 0, self.currentLine * self.line_height)
+    if self.current_line and #list > 0 then
+      love.graphics.print('>', 0, self.current_line * self.line_height)
     end
   end
 }

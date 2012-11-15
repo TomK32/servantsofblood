@@ -43,7 +43,10 @@ class "GUIMain" {
     end
   end,
 
-  update = function(self, dt)
+  update = function(self, dt, moved)
+    if moved and self.focused_view and self.focused_view.reset then
+      self.focused_view:reset()
+    end
     if self.focused_view and self.focused_view.navigatable then
       if dt_since_last_move + dt > 0.1 then
         if love.keyboard.isDown('+', '-', 'pageup', 'pagedown') then

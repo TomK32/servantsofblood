@@ -19,7 +19,7 @@ function love.load()
 end
 
 function love.update(dt)
-  gui_main:update(dt)
+  local moved = false
   if game_state.focus == 'inspector' or game_state.focus == 'main' then
     if love.keyboard.isDown('up', 'down','left', 'right', 'kp1', 'kp2', 'kp3', 'kp4', 'kp6', 'kp7', 'kp8', 'kp9') then
       if dt_since_last_move + dt > 0.1 then
@@ -45,6 +45,7 @@ function love.update(dt)
         for key, m in pairs(movements) do
           if love.keyboard.isDown(key) then
             dt_since_last_move = 0
+            moved = true
             if game_state.focus == 'inspector' then
               gui_main.map_view:moveCursor(m)
             elseif game_state.focus == 'main' then
@@ -56,6 +57,7 @@ function love.update(dt)
         dt_since_last_move = dt_since_last_move + dt
       end
     end
+  gui_main:update(dt, moved)
   end
   if game_state.running == false then
     return

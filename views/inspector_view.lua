@@ -1,13 +1,15 @@
 
 class "InspectorView" (ListView) {
-  cursor_row = 1,
   entities = nil,
   details = false,
 
   __init__ = function(self)
-    self.cursor_row = 1
     self.entities = {}
     self.details = false
+  end,
+
+  reset = function(self)
+    self.current_line = 1
   end,
 
   drawContent = function(self)
