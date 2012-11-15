@@ -25,7 +25,7 @@ class "InspectorView" (ListView) {
   drawLine = function(self, line_number, entity)
     love.graphics.setColor(255,255,255,255)
     if entity.to_s and entity:to_s() then
-      love.graphics.print(entity:to_s(), 24, 0)
+      love.graphics.print(entity:to_s(), 20, 0)
     end
   end
 }

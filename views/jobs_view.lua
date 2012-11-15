@@ -10,7 +10,7 @@ class "JobsView" (ListView) {
 
   drawLine = function(self, line_number, job)
     love.graphics.setColor(255,255,255,255)
-    love.graphics.print(job.description, 24, 0)
+    love.graphics.print(job.description, 20, 0)
   end
 }
 

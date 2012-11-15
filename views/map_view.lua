@@ -9,7 +9,7 @@ class "MapView" (View) {
 
   __init__ = function(self, map)
     self.map = map
-    self.display = {x = 0, y = 0, width = 100, height = 320}
+    self.display = {x = 10, y = 10, width = 100, height = 320}
     self.draw_cursor = false
   end,
 
@@ -18,20 +18,20 @@ class "MapView" (View) {
   end,
 
   drawContent = function(self)
-    tiles_x = (self.display.width / self.tile_size.x) - 1
-    tiles_y = (self.display.height / self.tile_size.y) - 1
-    for x = 1, tiles_x do
-      for y = 1, tiles_y do
-        tile = self.map:getTile({x = self.top_left.x + x, y = self.top_left.y + y})
+    tiles_x = math.floor(self.display.width / self.tile_size.x)
+    tiles_y = math.floor(self.display.height / self.tile_size.y)
+    for x = 0, tiles_x-1 do
+      for y = 0, tiles_y-1 do
+        tile = self.map:getTile({x = self.top_left.x + x + 1, y = self.top_left.y + y + 1})
         if tile then
           love.graphics.setColor( 0, tile.shade, tile.shade / 3, 255 )
           love.graphics.rectangle('fill', x * self.tile_size.x, y * self.tile_size.y, self.tile_size.x, self.tile_size.y)
           if #tile.entities > 0 then
             love.graphics.setColor(200,200,200,255)
             if #tile:workers() > 0 then
-              love.graphics.print( ':)', x * self.tile_size.x+4, y * self.tile_size.y)
+              love.graphics.print( ':)', x * self.tile_size.x + 4, y * self.tile_size.y)
             elseif #tile:jobs() > 0 then
-              love.graphics.print( '%', x * self.tile_size.x+2, y * self.tile_size.y)
+              love.graphics.print( '%', x * self.tile_size.x + 2, y * self.tile_size.y)
             end
           end
         end
@@ -40,8 +40,8 @@ class "MapView" (View) {
     if self.draw_cursor then
       -- print cursor
       love.graphics.setColor(255,255,255,255)
-      love.graphics.print('X', (self.cursor_position.x - self.top_left.x) * self.tile_size.x,
-          (self.cursor_position.y - self.top_left.y) * self.tile_size.y)
+      love.graphics.print('X', (self.cursor_position.x - self.top_left.x - 1) * self.tile_size.x,
+          (self.cursor_position.y - self.top_left.y - 1) * self.tile_size.y)
 
       -- print cursor position
       love.graphics.print(self.cursor_position.x .. ':' .. self.cursor_position.y, self.tile_size.x+2, self.display.height - 10)
