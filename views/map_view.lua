@@ -24,7 +24,7 @@ class "MapView" (View) {
       for y = 1, tiles_y do
         tile = self.map:getTile({x = self.top_left.x + x, y = self.top_left.y + y})
         if tile then
-          love.graphics.setColor( tile.shade, 0, 0, 255 )
+          love.graphics.setColor( 0, tile.shade, tile.shade / 3, 255 )
           love.graphics.rectangle('fill', x * self.tile_size.x, y * self.tile_size.y, self.tile_size.x, self.tile_size.y)
           if #tile.entities > 0 then
             love.graphics.setColor(200,200,200,255)
