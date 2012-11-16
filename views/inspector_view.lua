@@ -2,9 +2,6 @@ require('views/detail_menu_view')
 
 InspectorView = class("InspectorView", ListView)
 InspectorView:include({
-  entities = nil,
-  details = false,
-  details_menu_view = nil,
 
   initialize = function(self)
     self.entities = {}

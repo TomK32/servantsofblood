@@ -57,8 +57,9 @@ function love.update(dt)
         dt_since_last_move = dt_since_last_move + dt
       end
     end
-  gui_main:update(dt, moved)
   end
+  gui_main:update(dt, moved)
+
   if game_state.running == false then
     return
   end

@@ -1,10 +1,8 @@
 
 MenuView = class("MenuView", ListView)
 MenuView:include({
-  lineHeight = 16,
   level = nil, -- main, jobs, other levels
   focus = nil, -- what's the player's focus: a worker, job, workshop
-
   menu = {
     main = {
       k = 'Inspect',
@@ -12,12 +10,13 @@ MenuView:include({
       q = 'Quit'
     }
   },
+
   initialize = function(self, menu)
+    self.display = {x = 0, y = 0}
     self.level = 'main'
     if menu then
       self.menu = menu
     end
-    self.display = {x = 0, y = 0, height = 200, width = 200 }
   end,
 
   setLevel = function(self, level)

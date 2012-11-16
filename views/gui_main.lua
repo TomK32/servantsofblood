@@ -8,28 +8,18 @@ require('views/inspector_view')
 
 GUIMain = class("GUIMain")
 GUIMain:include({
-  game_state = nil,
-  map_view = nil,
-  job_status_view = nil,
-  jobs_view = nil,
-  inspector_view = nil,
-  menu_view = nil,
-  map_view = nil,
-  focused_view = nil,
 
   initialize = function(self, game_state)
     self.game_state = game_state
 
-    ListView.display.x = love.graphics.getWidth() - ListView.display.width
-    ListView.display.height = love.graphics.getHeight()
-
+    self.display = {x = love.graphics.getWidth() - ListView.display.width, y = 0}
     self.menu_view = MenuView()
     self.jobs_view = JobsView(game_state.jobs)
     self.job_status_view = JobStatusView(game_state.jobs)
     self.inspector_view = InspectorView()
 
     self.map_view = MapView(game_state.map)
-    self.map_view.display.width = ListView.display.x - 10
+    self.map_view.display.width = self.display.x - 10
     self.map_view.display.height = love.graphics.getHeight() - 10
 
     self.focused_view = nil
@@ -75,6 +65,8 @@ GUIMain:include({
 
   draw = function(self)
     love.graphics.push()
+    love.graphics.push()
+    love.graphics.translate(self.display.x, self.display.y)
     self.map_view.draw_cursor = false
     if self.game_state.focus == 'inspector' then
       self.map_view.draw_cursor = true
@@ -85,6 +77,7 @@ GUIMain:include({
     else
       self.menu_view:draw()
     end
+    love.graphics.pop()
     self.map_view:draw()
     love.graphics.pop()
   end
