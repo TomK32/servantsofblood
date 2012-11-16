@@ -1,6 +1,6 @@
 require 'entities/base'
 require 'entities/ground'
-require 'entities/start'
+require 'entities/waypoint'
 
 Tile = class("Tile")
 Tile:include({
@@ -32,5 +32,8 @@ Tile:include({
   end,
   workers = function(self)
     return self:entitiesByType(Worker)
+  end,
+  isWaypoint = function(self)
+    return #self:entitiesByType(Entities.Waypoint) > 0
   end
 })

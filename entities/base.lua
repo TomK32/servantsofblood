@@ -8,7 +8,6 @@ function Entities.Base:initialize(x, y)
 end
 
 function Entities.Base:to_s()
-  print(self)
   return self.name
 end
 

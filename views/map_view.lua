@@ -24,7 +24,11 @@ MapView:include({
       for y = 0, tiles_y-1 do
         tile = self.map:getTile({x = self.top_left.x + x + 1, y = self.top_left.y + y + 1})
         if tile then
-          love.graphics.setColor( 0, tile.shade, tile.shade / 3, 255 )
+          if tile:isWaypoint() then
+            love.graphics.setColor(200, 0, 0, 255)
+          else
+            love.graphics.setColor( 0, tile.shade, tile.shade / 3, 255 )
+          end
           love.graphics.rectangle('fill', x * self.tile_size.x, y * self.tile_size.y, self.tile_size.x, self.tile_size.y)
           if #tile.entities > 0 then
             love.graphics.setColor(200,200,200,255)

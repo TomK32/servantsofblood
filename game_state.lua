@@ -10,7 +10,7 @@ GameState:include({
   worker_spawner = nil,
   focus = 'inspector', -- main, inspector, jobs
   paused = false,
-  
+  next_waypoint = nil,
 
   initialize = function(self)
     self.paused = true
@@ -27,12 +27,19 @@ GameState:include({
       table.insert(self.workers, worker)
       self.map:place(worker)
     end
-    for i=1, 10 do
-      job = self.job_spawner:create()
-      job.position = {x = math.random(self.map.width), y = math.random(self.map.height)}
-      table.insert(self.jobs, job)
-      self.map:place(job)
+
+    local last_waypoint = Entities.Waypoint({x = self.player.position.x, y = self.player.position.y}, 'Start')
+    self.map:place(last_waypoint)
+    dt_x = self.map.width / 10
+    dt_y = self.map.height / 10
+    local wp = {x = self.player.position.x, y = self.player.position.y}
+    for i = 1, 10 do
+      wp = {x = wp.x + math.random(dt_x) + i, y = wp.y + math.random(dt_y) + i}
+      local waypoint = Entities.Waypoint(wp, 'Waypoint ' .. i, false)
+      self.map:place(waypoint)
+      last_waypoint.next_waypoint = waypoint
+      last_waypoint = waypoint
     end
-    self.map:place(Entities.Start(self.player.position.x, self.player.position.y))
+    last_waypoint.is_finish = true
   end,
 })
