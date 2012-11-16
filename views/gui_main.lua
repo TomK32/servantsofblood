@@ -5,6 +5,7 @@ require('views/jobs_view')
 require('views/map_view')
 require('views/menu_view')
 require('views/inspector_view')
+require('views/compass_view')
 
 GUIMain = class("GUIMain")
 GUIMain:include({
@@ -12,7 +13,12 @@ GUIMain:include({
   initialize = function(self, game_state)
     self.game_state = game_state
 
-    self.display = {x = love.graphics.getWidth() - ListView.display.width, y = 0}
+    self.display = {x = love.graphics.getWidth() - ListView.display.width, y = 148}
+
+    -- compass on top, any other info view below that
+    self.compass_view = CompassView()
+    self.compass_view.display.x = self.display.x
+
     self.menu_view = MenuView()
     self.jobs_view = JobsView(game_state.jobs)
     self.job_status_view = JobStatusView(game_state.jobs)
@@ -65,6 +71,7 @@ GUIMain:include({
 
   draw = function(self)
     love.graphics.push()
+    self.compass_view:draw(self.game_state.player, self.game_state.next_waypoint)
     love.graphics.push()
     love.graphics.translate(self.display.x, self.display.y)
     self.map_view.draw_cursor = false

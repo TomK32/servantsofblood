@@ -5,7 +5,7 @@ ListView:include({
   navigatable = true,
   list_entries = nil,
   current_line = 1,
-  display = { x = 0, y = 0, width = 220, height = 300 },
+  display = { x = 0, y = 0, width = 148, height = 300 },
 
   initialize = function(self)
     self.display = {x = 0, y = 0}

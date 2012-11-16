@@ -29,6 +29,7 @@ GameState:include({
     end
 
     local last_waypoint = Entities.Waypoint({x = self.player.position.x, y = self.player.position.y}, 'Start')
+    self.next_waypoint = last_waypoint
     self.map:place(last_waypoint)
     dt_x = self.map.width / 10
     dt_y = self.map.height / 10
