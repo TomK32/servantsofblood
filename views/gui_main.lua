@@ -71,7 +71,7 @@ GUIMain:include({
 
   draw = function(self)
     love.graphics.push()
-    self.compass_view:draw(self.game_state.player, self.game_state.next_waypoint)
+    self.compass_view:draw(self.game_state.player)
     love.graphics.push()
     love.graphics.translate(self.display.x, self.display.y)
     self.map_view.draw_cursor = false

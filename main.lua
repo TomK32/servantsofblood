@@ -16,6 +16,7 @@ function love.load()
   gui_main = GUIMain(game_state)
   gui_main.map_view.cursor_position = game_state.player.position
   game_controller = GameController(game_state, gui_main)
+  game_state.player:move({x = 0, y = 0})
   dt_since_last_move = 1
 end
 
@@ -47,7 +48,7 @@ function love.update(dt)
           if love.keyboard.isDown(key) then
             dt_since_last_move = 0
             moved = true
-            gui_main.map_view:moveCursor(m)
+            game_state.player:move(m)
           end
         end
       else
