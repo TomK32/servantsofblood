@@ -1,5 +1,5 @@
 function love.conf(c)
-  c.title = "Fortress Middle Management: Servants of Blood"
+  c.title = "Cross Country Running"
   c.author = "Thomas R. Koll"
   c.modules.physics = false
   c.screen.width = 800
