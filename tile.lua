@@ -22,7 +22,7 @@ Tile:include({
   entitiesByType = function (self, klass)
     local r = {}
     for i, e in pairs(self.entities) do
-      if subclassOf(e.__class__, klass) then
+      if klass == e.class or subclassOf(klass, e.class) then
         table.insert(r, e)
       end
     end
