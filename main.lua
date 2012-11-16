@@ -25,11 +25,7 @@ function love.update(dt)
   if game_state.focus == 'inspector' or game_state.focus == 'main' then
     if love.keyboard.isDown('up', 'down','left', 'right', 'kp1', 'kp2', 'kp3', 'kp4', 'kp6', 'kp7', 'kp8', 'kp9') then
       if dt_since_last_move + dt > 0.1 then
-        if love.keyboard.isDown('rshift', 'lshift') then
-          moves = 5
-        else
-          moves = 1
-        end
+        moves = 1
         movements = {
           up    = { x = 0, y = - moves },
           kp8   = { x = 0, y = - moves },
@@ -48,7 +44,7 @@ function love.update(dt)
           if love.keyboard.isDown(key) then
             dt_since_last_move = 0
             moved = true
-            game_state.player:move(m)
+            game_state.player:move(m, love.keyboard.isDown('rshift', 'lshift'))
           end
         end
       else
@@ -61,11 +57,14 @@ function love.update(dt)
   if game_state.paused then
     return
   end
-  game_controller:update()
+  game_controller:update(dt)
 end
 
 function love.keypressed(key, unicode)
   dt_since_last_move = 1 -- to allow rapid key hitting
+  if unicode >= 49 and unicode < 59 then
+    game_state.player:setSpeed(unicode - 48)
+  end
   if game_controller.active_controller then
     game_controller.active_controller:keypressed(key, unicode)
   end

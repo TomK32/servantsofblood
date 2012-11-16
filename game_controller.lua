@@ -28,7 +28,8 @@ GameController:include({
     self.control_map.keyboard.on_press[' '] = 'toggleGameStatePaused'
   end,
 
-  update = function(self)
+  update = function(self, dt)
+    self.game_state.player:update(dt)
   end,
 
   designate = function(self)
