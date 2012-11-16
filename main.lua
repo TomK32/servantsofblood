@@ -57,7 +57,7 @@ function love.update(dt)
   end
   gui_main:update(dt, moved)
 
-  if game_state.running == false then
+  if game_state.paused then
     return
   end
   game_controller:update()
@@ -76,10 +76,10 @@ function love.draw()
   gui_main:draw()
   love.graphics.setColor(255,255,255,255)
   love.graphics.setFont(love.graphics.newFont(14))
-  if game_state.running then
-    love.graphics.print("FPS: "..love.timer.getFPS(), 10, 20)
-  else
+  if game_state.paused then
     love.graphics.print('PAUSED', 10, 20)
+  else
+    love.graphics.print("FPS: "..love.timer.getFPS(), 10, 20)
   end
 end
 

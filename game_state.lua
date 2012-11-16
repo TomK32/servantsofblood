@@ -9,10 +9,11 @@ GameState:include({
   workers = nil,
   worker_spawner = nil,
   focus = 'inspector', -- main, inspector, jobs
-  running = false,
+  paused = false,
+  
 
   initialize = function(self)
-    self.running = false
+    self.paused = true
     self.jobs = {}
     self.player = PlayerController()
     self.player.position = {x = 4, y = 4}
