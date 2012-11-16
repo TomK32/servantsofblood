@@ -10,11 +10,11 @@ Map:include({
   end,
 
   randomize = function(self)
-    for x = 1, self.width do
+    for y = 1, self.height do
       table.insert(self.map, {})
-      for y = 1, self.height do
-        table.insert(self.map[x], Tile())
-      end
+      --for x = 1, self.width do
+        --table.insert(self.map[x], Tile())
+      --end
     end
   end,
 
@@ -27,7 +27,10 @@ Map:include({
 
   getTile = function(self, position)
     if self.map[position.x] then
-      if self.map[position.y] then
+      if self.map[position.x][position.y] then
+        return self.map[position.x][position.y]
+      else
+        self.map[position.x][position.y] = Tile()
         return self.map[position.x][position.y]
       end
     end

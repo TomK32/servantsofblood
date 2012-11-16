@@ -19,7 +19,7 @@ GameState:include({
     self.player.position = {x = 4, y = 4}
     self.job_spawner = JobSpawner()
     self.worker_spawner = WorkerSpawner()
-    self.map = Map(50,50)
+    self.map = Map(5000,500)
     self.map:randomize()
     self.workers = {}
     for i=1, 3 do

@@ -10,9 +10,9 @@ Tile:include({
   initialize = function(self)
     self.shade = math.random(100)
     self.entities = {}
-    if math.random() > 0.2 then
-      table.insert(self.entities, Entities.Ground())
-    end
+    --if math.random() > 0.2 then
+    --  table.insert(self.entities, Entities.Ground())
+    --end
   end,
 
   addEntity = function(self,entity)
