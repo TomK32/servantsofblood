@@ -8,13 +8,14 @@ GameState:include({
   job_spawner = nil,
   workers = nil,
   worker_spawner = nil,
-  focus = 'main', -- main, inspector, jobs
+  focus = 'inspector', -- main, inspector, jobs
   running = false,
 
   initialize = function(self)
     self.running = false
     self.jobs = {}
     self.player = PlayerController()
+    self.player.position = {x = 4, y = 4}
     self.job_spawner = JobSpawner()
     self.worker_spawner = WorkerSpawner()
     self.map = Map(50,50)
@@ -31,5 +32,6 @@ GameState:include({
       table.insert(self.jobs, job)
       self.map:place(job)
     end
+    self.map:place(Entities.Start(self.player.position.x, self.player.position.y))
   end,
 })

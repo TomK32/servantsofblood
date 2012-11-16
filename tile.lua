@@ -1,7 +1,6 @@
-if not Entities then
-  Entities = {}
-end
+require 'entities/base'
 require 'entities/ground'
+require 'entities/start'
 
 Tile = class("Tile")
 Tile:include({

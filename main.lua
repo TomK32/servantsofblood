@@ -14,6 +14,7 @@ require('job_spawner')
 function love.load()
   game_state = GameState()
   gui_main = GUIMain(game_state)
+  gui_main.map_view.cursor_position = game_state.player.position
   game_controller = GameController(game_state, gui_main)
   dt_since_last_move = 1
 end
@@ -46,11 +47,7 @@ function love.update(dt)
           if love.keyboard.isDown(key) then
             dt_since_last_move = 0
             moved = true
-            if game_state.focus == 'inspector' then
-              gui_main.map_view:moveCursor(m)
-            elseif game_state.focus == 'main' then
-              gui_main.map_view:moveTopLeft(m)
-            end
+            gui_main.map_view:moveCursor(m)
           end
         end
       else
