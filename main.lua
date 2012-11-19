@@ -14,9 +14,7 @@ require('job_spawner')
 function love.load()
   game_state = GameState()
   gui_main = GUIMain(game_state)
-  gui_main.map_view.cursor_position = game_state.player.position
   game_controller = GameController(game_state, gui_main)
-  game_state.player:move({x = 0, y = 0})
   dt_since_last_move = 1
 end
 
@@ -24,7 +22,8 @@ function love.update(dt)
   local moved = false
   if game_state.focus == 'inspector' or game_state.focus == 'main' then
     if love.keyboard.isDown('up', 'down','left', 'right', 'kp1', 'kp2', 'kp3', 'kp4', 'kp6', 'kp7', 'kp8', 'kp9') then
-      if dt_since_last_move + dt > 0.1 then
+      -- FIXME move into playerController
+      if dt_since_last_move > 0.3 then
         moves = 1
         movements = {
           up    = { x = 0, y = - moves },
@@ -47,10 +46,9 @@ function love.update(dt)
             game_state.player:move(m, love.keyboard.isDown('rshift', 'lshift'))
           end
         end
-      else
-        dt_since_last_move = dt_since_last_move + dt
       end
     end
+    dt_since_last_move = dt_since_last_move + dt
   end
   gui_main:update(dt, moved)
 

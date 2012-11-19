@@ -35,5 +35,18 @@ Map:include({
       end
     end
     return false
+  end,
+
+  fitIntoMap = function(self, position)
+    if position.x < 0 then
+      position.x = 0
+    elseif position.x > self.width then
+      position.x = self.width
+    end
+    if position.y < 0 then
+      position.y = 0
+    elseif position.y > self.height then
+      position.y = self.height
+    end
   end
 })

@@ -22,6 +22,9 @@ function CompassView:drawContent(player)
       text = text .. 'E'
     end
     love.graphics.setColor(0,0,0,255)
+    love.graphics.print(player.position.x .. ':' .. player.position.y, 10, 10)
+    love.graphics.print('Speed: ' .. math.ceil(player.speed), self.display.height - 65, 10)
+    love.graphics.print('Stamina: ' .. math.ceil(player.stamina_display), self.display.height - 85, self.display.height - 10)
     love.graphics.print(text, self.display.width / 2, self.display.height / 2)
   end
 end

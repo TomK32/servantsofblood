@@ -40,6 +40,7 @@ GameState:include({
       last_waypoint.next_waypoint = waypoint
       last_waypoint = waypoint
     end
+    self.player.next_waypoint = self.player.next_waypoint.next_waypoint -- start is on the player's spot
     last_waypoint.is_finish = true
   end,
 })

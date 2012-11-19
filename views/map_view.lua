@@ -60,9 +60,25 @@ MapView:include({
     return math.floor(self.display.height / self.tile_size.y)
   end,
 
+  centerAt = function(self, position)
+    x = position.x - math.floor(self:tiles_x() / 2)
+    y = position.y - math.floor(self:tiles_y() / 2)
+    if math.abs(self.top_left.x - x) > 5 or math.abs(self.top_left.y - y) > 5 then
+      self.top_left = {x = x, y = y}
+      self:fixTopLeft()
+    end
+  end,
+
   moveTopLeft = function(self, offset, dontMoveCursor)
     self.top_left.x = self.top_left.x + 3 * offset.x
     self.top_left.y = self.top_left.y + 3 * offset.y
+    fixTopLeft()
+    if not dontMoveCursor then
+      self:moveCursor({x = offset.x * 3, y = offset.y * 3}, true)
+    end
+  end,
+
+  fixTopLeft = function(self)
     max_x = math.floor(self.map.height - self:tiles_x())
     if self.top_left.x < 0 then
       self.top_left.x = 0
@@ -74,9 +90,6 @@ MapView:include({
       self.top_left.y = 0
     elseif self.top_left.y > max_y then
       self.top_left.y = max_y + 1
-    end
-    if not dontMoveCursor then
-      self:moveCursor({x = offset.x * 3, y = offset.y * 3}, true)
     end
   end,
 

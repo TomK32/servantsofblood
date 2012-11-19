@@ -76,7 +76,6 @@ GUIMain:include({
     love.graphics.translate(self.display.x, self.display.y)
     self.map_view.draw_cursor = false
     if self.game_state.focus == 'inspector' then
-      self.map_view.draw_cursor = true
       self.inspector_view.list_entries = self.map_view:currentTile().entities
       self.inspector_view:draw()
     elseif self.game_state.focus == 'jobs' then
