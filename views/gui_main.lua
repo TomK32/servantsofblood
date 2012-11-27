@@ -27,6 +27,7 @@ GUIMain:include({
     self.map_view = MapView(game_state.map)
     self.map_view.display.width = self.display.x - 10
     self.map_view.display.height = love.graphics.getHeight() - 10
+    self.map_view:drawCanvas()
 
     self.focused_view = nil
   end,

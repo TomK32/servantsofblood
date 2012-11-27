@@ -6,11 +6,13 @@ MapView:include({
   cursor_position = { x = 14, y = 11 },
   top_left = { x = 0, y = 0 }, -- offset
   draw_cursor = false,
+  canvas = nil,
 
   initialize = function(self, map)
     self.map = map
     self.display = {x = 10, y = 10, width = 100, height = 320}
     self.draw_cursor = false
+    self.canvas = love.graphics.newCanvas()
   end,
 
   currentTile = function(self)
@@ -18,6 +20,15 @@ MapView:include({
   end,
 
   drawContent = function(self)
+    if self.canvas then
+      love.graphics.setColor(255,255,255,255)
+      love.graphics.draw(self.canvas, 0, 0)
+    end
+    love.graphics.draw(self.canvas, 0, 0)
+ end,
+
+  drawCanvas = function (self)
+    love.graphics.setCanvas(self.canvas)
     tiles_x = math.floor(self.display.width / self.tile_size.x)
     tiles_y = math.floor(self.display.height / self.tile_size.y)
     for x = 0, tiles_x-1 do
@@ -32,24 +43,17 @@ MapView:include({
           love.graphics.rectangle('fill', x * self.tile_size.x, y * self.tile_size.y, self.tile_size.x, self.tile_size.y)
           if #tile.entities > 0 then
             love.graphics.setColor(200,200,200,255)
-            if #tile:workers() > 0 then
-              love.graphics.print( ':)', x * self.tile_size.x + 4, y * self.tile_size.y)
-            elseif #tile:jobs() > 0 then
-              love.graphics.print( '%', x * self.tile_size.x + 2, y * self.tile_size.y)
-            end
+          end
+          if #tile:workers() > 0 then
+            love.graphics.print( ':)', x * self.tile_size.x + 4, y * self.tile_size.y)
+          elseif #tile:jobs() > 0 then
+            love.graphics.print( '%', x * self.tile_size.x + 2, y * self.tile_size.y)
           end
         end
       end
     end
-    if self.draw_cursor then
-      -- print cursor
-      love.graphics.setColor(255,255,255,255)
-      love.graphics.print('X', (self.cursor_position.x - self.top_left.x - 1) * self.tile_size.x,
-          (self.cursor_position.y - self.top_left.y - 1) * self.tile_size.y)
-
-      -- print cursor position
-      love.graphics.print(self.cursor_position.x .. ':' .. self.cursor_position.y, self.tile_size.x+2, self.display.height - 10)
-    end
+    love.graphics.setCanvas()
+    return self.canvas
   end,
 
   tiles_x = function(self)
@@ -67,6 +71,7 @@ MapView:include({
       self.top_left = {x = x, y = y}
       self:fixTopLeft()
     end
+    self:drawCanvas()
   end,
 
   moveTopLeft = function(self, offset, dontMoveCursor)
