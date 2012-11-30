@@ -13,12 +13,13 @@ GameState:include({
   initialize = function(self)
     self.paused = true
     self.jobs = {}
-    self.runner = Runner({x=4, y=4})
+    self.runner = Runner({x=4, y=4}, 'Thomas')
     self.player = PlayerController(self, self.runner)
     self.map = Map(5000,2000)
     self.map:randomize()
     self.map:place(self.runner)
     self.runners = {}
+    table.insert(self.runners, self.player)
     self.start = Entities.Waypoint({x = self.player.position.x, y = self.player.position.y}, 'Start')
     local last_waypoint = self.start
     self.map:place(last_waypoint)

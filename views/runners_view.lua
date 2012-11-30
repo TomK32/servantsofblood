@@ -11,7 +11,11 @@ function RunnersView:drawContent()
   self:drawList()
 end
 function RunnersView:drawLine(line_number, runner)
-  love.graphics.setColor(255,255,255,255)
+  if runner.runner.highlight then
+    love.graphics.setColor(255,100, 0, 255)
+  else
+    love.graphics.setColor(255,255,255,255)
+  end
   local txt = (runner.runner.name or 'Runner') .. ' ' .. runner.distance_to_finish
   love.graphics.print(txt, 20, 0)
 end

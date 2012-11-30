@@ -7,8 +7,9 @@ Runner:include({
   highlight = false,
 })
 
-function Runner:initialize(position)
+function Runner:initialize(position, name)
   self.position = position
+  self.name = name
   self.running = true
 end
 

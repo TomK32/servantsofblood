@@ -19,7 +19,8 @@ GUIMain:include({
 
     self.runners_view = RunnersView(game_state.runners)
     self.runners_view.display.x = self.display.x
-    self.runners_view.display.y = self.compass_view.display.y + self.compass_view.display.height
+    self.runners_view.display.y = self.compass_view.display.y + self.compass_view.display.height + 10
+    self.runners_view.display.height = love.graphics.getHeight() - self.runners_view.display.y - 20
 
     self.map_view = MapView(game_state.map)
     self.map_view.display.width = self.display.x - 10
