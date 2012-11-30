@@ -16,33 +16,34 @@ Tile:include({
   end,
 
   addEntity = function(self, entity)
-    if not self.entities[entity.class] then
-      self.entities[entity.class] = {}
+    if not self.entities[entity.class.name] then
+      self.entities[entity.class.name] = {}
     end
-    table.insert(self.entities[entity.class], entity)
+    table.insert(self.entities[entity.class.name], entity)
   end,
   removeEntity = function(self, entity)
-    for i, e in pairs(self.entities[entity.class]) do
+    for i, e in pairs(self.entities[entity.class.name]) do
       if e == entity then
-        table.remove(self.entities[entity.class], i)
+        table.remove(self.entities[entity.class.name], i)
         return true
       end
     end
     return false
   end,
-  entitiesByType = function (self, klass)
-    local r = {}
-    for i, e in pairs(self.entities) do
-      if klass == e.class or subclassOf(klass, e.class) then
-        table.insert(r, e)
+  runners = function(self)
+    return (self.entities['Runner'] or {})
+  end,
+  runnerHighlight = function(self)
+    if not self.entities['Runner'] or # self.entities['Runner'] == 0 then
+      return false
+    end
+    for i, runner in pairs(self.entities['Runner']) do
+      if runner.highlight then
+        return true
       end
     end
-    return r
-  end,
-  runners = function(self)
-    return (self.entities[Runner] or {})
   end,
   isWaypoint = function(self)
-    return self.entities.Waypoint and #self.entities.Waypoint > 0
+    return self.entities["Waypoint"] and #self.entities["Waypoint"] > 0
   end
 })

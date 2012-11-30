@@ -23,6 +23,9 @@ function PlayerController:move(direction, sprint)
 end
 
 function PlayerController:update(dt)
+  self:updatePosition(dt)
+end
+function PlayerController:updatePosition(dt)
   if math.abs(self.stamina_display - self.stamina) > 3 then
     self.stamina_display = self.stamina
   end
@@ -51,7 +54,6 @@ function PlayerController:update(dt)
   -- exhausted, go only 1/10th
   if self.stamina <= 10 then
     s = 1
-    self.speed = 1
   end
 
   self.stamina = self.stamina - (s*s / 7)
@@ -72,7 +74,9 @@ function PlayerController:update(dt)
   self.game_state.map:fitIntoMap(self.position)
 
   self.game_state.map:moveEntity(self.runner, old_position, self.position)
-  gui_main.map_view:centerAt(self.position)
+  if game_state.runner == self.runner then
+    gui_main.map_view:centerAt(self.position)
+  end
 
   self.direction = nil
 

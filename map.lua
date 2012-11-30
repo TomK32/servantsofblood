@@ -31,7 +31,7 @@ Map:include({
     local tile = self:getTile(old_position)
     if tile then
       if tile:removeEntity(entity) then
-        self:place(entity, new_position)
+        self:place(entity)
       end
     end
   end,

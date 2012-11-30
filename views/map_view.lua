@@ -42,6 +42,9 @@ MapView:include({
           end
           love.graphics.rectangle('fill', x * self.tile_size.x, y * self.tile_size.y, self.tile_size.x, self.tile_size.y)
           love.graphics.setColor(255,255,255,255)
+          if tile:runnerHighlight() then
+            love.graphics.setColor(255,100,0,255)
+          end
           if #tile:runners() > 0 then
             love.graphics.print( ':)', x * self.tile_size.x + 4, y * self.tile_size.y)
           end

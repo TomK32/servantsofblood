@@ -4,6 +4,7 @@ require("lib/middleclass")
 require('table')
 require('entities/runner')
 require("player_controller")
+require("ai_controller")
 require("game_controller")
 require("game_state")
 require('views/gui_main')
@@ -24,7 +25,7 @@ function love.update(dt)
   if game_state.focus == 'inspector' or game_state.focus == 'main' then
     if love.keyboard.isDown('up', 'down','left', 'right', 'kp1', 'kp2', 'kp3', 'kp4', 'kp6', 'kp7', 'kp8', 'kp9') then
       -- FIXME move into playerController
-      if dt_since_last_move > 0.3 then
+      if dt_since_last_move > 0.1 then
         moves = 1
         movements = {
           up    = { x = 0, y = - moves },
@@ -51,12 +52,13 @@ function love.update(dt)
     end
     dt_since_last_move = dt_since_last_move + dt
   end
-  gui_main:update(dt, moved)
 
   if game_state.paused then
     return
   end
+  gui_main:update(dt, moved)
   game_controller:update(dt)
+  gui_main.map_view:drawCanvas()
 end
 
 function love.keypressed(key, unicode)
