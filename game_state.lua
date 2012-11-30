@@ -4,10 +4,6 @@ GameState = class("GameState")
 GameState:include({
   map = nil,
   player = nil,
-  jobs = nil,
-  job_spawner = nil,
-  workers = nil,
-  worker_spawner = nil,
   focus = 'inspector', -- main, inspector, jobs
   paused = false,
   runner = nil,
@@ -17,17 +13,9 @@ GameState:include({
     self.jobs = {}
     self.runner = Runner()
     self.player = PlayerController(self, self.runner)
-    self.job_spawner = JobSpawner()
-    self.worker_spawner = WorkerSpawner()
     self.map = Map(5000,2000)
     self.map:randomize()
     self.map:place(self.runner)
-    self.workers = {}
-    for i=1, 3 do
-      worker = self.worker_spawner:create()
-      table.insert(self.workers, worker)
-      self.map:place(worker)
-    end
 
     local last_waypoint = Entities.Waypoint({x = self.player.position.x, y = self.player.position.y}, 'Start')
     self.player.next_waypoint = last_waypoint

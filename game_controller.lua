@@ -11,7 +11,6 @@ GameController:include({
   control_map = {
     keyboard = {
       on_press = {
-        d = 'designate',
         k = 'inspect',
         escape = 'escape',
         j = 'jobs',
@@ -30,16 +29,6 @@ GameController:include({
 
   update = function(self, dt)
     self.game_state.player:update(dt)
-  end,
-
-  designate = function(self)
-    if self.game_state.focus == 'main' then
-      local tile = self.views.map_view:currentTile()
-      local jobs = tile:jobs()
-      if #jobs > 0 then
-        print(tile)
-      end
-    end
   end,
 
   inspect = function(self)

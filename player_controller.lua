@@ -11,14 +11,14 @@ function PlayerController:initialize(game_state, runner)
   self.position = runner.position
   self.tile_position = 0 -- depending on the speed the player might not yet reach the next field
   self.game_state = game_state
-  self.offset = nil
+  self.direction = nil
   self.sprint = false
   self.step_dt = 0 -- time needed to cross a field
 end
 
 
-function PlayerController:move(offset, sprint)
-  self.offset = offset
+function PlayerController:move(direction, sprint)
+  self.direction = direction
   self.sprint = sprint
 end
 
@@ -37,7 +37,7 @@ function PlayerController:update(dt)
     self.stamina = 1
     return false
   end
-  if not self.offset then
+  if not self.direction then
     return
   end
 
@@ -61,20 +61,20 @@ function PlayerController:update(dt)
   end
 
   local old_position = {x = self.position.x, y = self.position.y}
-  local offset_factor = 1
+  local direction_factor = 1
   if s > 10 then
-    offset_factor = 2
+    direction_factor = 2
   end
   self.tile_position = self.tile_position % 10
 
-  self.position.x = self.position.x + (self.offset.x * offset_factor)
-  self.position.y = self.position.y + (self.offset.y * offset_factor)
+  self.position.x = self.position.x + (self.direction.x * direction_factor)
+  self.position.y = self.position.y + (self.direction.y * direction_factor)
   self.game_state.map:fitIntoMap(self.position)
 
   self.game_state.map:moveEntity(self.runner, old_position, self.position)
   gui_main.map_view:centerAt(self.position)
 
-  self.offset = nil
+  self.direction = nil
 
   if self.next_waypoint and
       self.position.x == self.next_waypoint.position.x and
