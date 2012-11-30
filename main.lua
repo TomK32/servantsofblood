@@ -41,13 +41,16 @@ function love.update(dt)
           kp1   = { x = - moves, y =   moves },
           kp3   = { x =   moves, y =   moves },
         }
+        movement = {x = 0, y = 0}
         for key, m in pairs(movements) do
           if love.keyboard.isDown(key) then
             dt_since_last_move = 0
             moved = true
-            game_state.player:move(m, love.keyboard.isDown('rshift', 'lshift'))
+            movement.x = movement.x + m.x
+            movement.y = movement.y + m.y
           end
         end
+        game_state.player:move(movement, love.keyboard.isDown('rshift', 'lshift'))
       end
     end
     dt_since_last_move = dt_since_last_move + dt
