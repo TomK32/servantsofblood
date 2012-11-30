@@ -1,11 +1,9 @@
 
 require('views/view')
-require('views/job_status_view')
-require('views/jobs_view')
+require('views/list_view')
 require('views/map_view')
-require('views/menu_view')
-require('views/inspector_view')
 require('views/compass_view')
+require('views/runners_view')
 
 GUIMain = class("GUIMain")
 GUIMain:include({
@@ -19,10 +17,9 @@ GUIMain:include({
     self.compass_view = CompassView()
     self.compass_view.display.x = self.display.x
 
-    self.menu_view = MenuView()
-    self.jobs_view = JobsView(game_state.jobs)
-    self.job_status_view = JobStatusView(game_state.jobs)
-    self.inspector_view = InspectorView()
+    self.runners_view = RunnersView(game_state.runners)
+    self.runners_view.display.x = self.display.x
+    self.runners_view.display.y = self.compass_view.display.y + self.compass_view.display.height
 
     self.map_view = MapView(game_state.map)
     self.map_view.display.width = self.display.x - 10
@@ -34,11 +31,6 @@ GUIMain:include({
 
   setFocus = function(self, focus)
     self.focused_view = nil
-    if focus == 'jobs' then
-      self.focused_view = self.jobs_view
-    elseif focus == 'inspector' then
-      self.focused_view = self.inspector_view
-    end
   end,
 
   update = function(self, dt, moved)
@@ -74,16 +66,9 @@ GUIMain:include({
     love.graphics.push()
     self.compass_view:draw(self.game_state.player)
     love.graphics.push()
+    self.runners_view:draw()
     love.graphics.translate(self.display.x, self.display.y)
     self.map_view.draw_cursor = false
-    if self.game_state.focus == 'inspector' then
-      self.inspector_view.list_entries = self.map_view:currentTile().entities
-      self.inspector_view:draw()
-    elseif self.game_state.focus == 'jobs' then
-      self.jobs_view:draw()
-    else
-      self.menu_view:draw()
-    end
     love.graphics.pop()
     self.map_view:draw()
     love.graphics.pop()

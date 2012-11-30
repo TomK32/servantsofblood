@@ -116,6 +116,6 @@ function PlayerController:setDistanceToFinish()
     self.distance_to_finish = 0
     return
   end
-  self.distance_to_finish = self.next_waypoint.distance_to_finish + self.next_waypoint:distanceTo(self.position)
+  self.distance_to_finish = math.floor(self.next_waypoint.distance_to_finish + self.next_waypoint:distanceTo(self.position))
 end
 
