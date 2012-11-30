@@ -28,7 +28,7 @@ GameState:include({
       wp = {x = wp.x + math.random(dt_x) + i, y = wp.y + math.random(dt_y) + i}
       local waypoint = Entities.Waypoint(wp, 'Waypoint ' .. i, false)
       self.map:place(waypoint)
-      last_waypoint.next_waypoint = waypoint
+      last_waypoint:setNextWaypoint(waypoint)
       last_waypoint = waypoint
     end
     self.player.runner.highlight = true

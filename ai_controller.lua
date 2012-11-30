@@ -1,6 +1,6 @@
 AIController = class("AIController", PlayerController)
 function AIController:update(dt)
-  if not self.running then return end
+  if not self.runner.running then return end
   if not self.direction and self.stamina_dt > self.regeneration_rate and self.next_waypoint and math.random(100) > 80 then
     x = self.next_waypoint.position.x - self.position.x
     y = self.next_waypoint.position.y - self.position.y
@@ -8,7 +8,6 @@ function AIController:update(dt)
     if x < -1 then x = -1 * math.random(2) end
     if y >= 2 then y = math.random(2) end
     if y < -1 then y = -1 * math.random(2) end
-    print(x,y)
     self.direction = {x = x, y = y}
     self.speed = math.random(10)
   end
@@ -16,7 +15,7 @@ function AIController:update(dt)
 end
 
 function AIController:finishReached()
-  self.running = false
+  self.runner.running = false
 end
 
 

@@ -2,7 +2,6 @@
 PlayerController = class("PlayerController")
 
 function PlayerController:initialize(game_state, runner)
-  self.running = true
   self.speed = 5 -- 5 gets you to the next field, 4 won't yet, 10 is two fields but exhausting
   self.stamina = 100
   self.stamina_dt = 0
