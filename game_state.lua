@@ -36,10 +36,10 @@ GameState:include({
     last_waypoint.is_finish = true
 
     for i = 1, 199 do
-      ai_runner = Runner({x = math.random(3)+2, y = math.random(3)+2})
+      ai_runner = AIController(self, Runner({x = math.random(3)+2, y = math.random(3)+2}))
       ai_runner.next_waypoint = self.player.next_waypoint.next_waypoint
-      table.insert(self.runners, AIController(self, ai_runner))
-      self.map:place(ai_runner)
+      table.insert(self.runners, ai_runner)
+      self.map:place(ai_runner.runner)
     end
 
   end,

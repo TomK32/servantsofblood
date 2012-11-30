@@ -2,6 +2,7 @@
 PlayerController = class("PlayerController")
 
 function PlayerController:initialize(game_state, runner)
+  self.running = true
   self.speed = 5 -- 5 gets you to the next field, 4 won't yet, 10 is two fields but exhausting
   self.stamina = 100
   self.stamina_dt = 0
@@ -84,13 +85,17 @@ function PlayerController:updatePosition(dt)
       self.position.x == self.next_waypoint.position.x and
       self.position.y == self.next_waypoint.position.y then
     if self.next_waypoint.is_finish then
-      self.game_state.paused = true
-      self.game_state.ended = true
-      love.draw = self.finishScreen
+      self:finishReached()
     else
       self.next_waypoint = self.next_waypoint.next_waypoint
     end
   end
+end
+
+function PlayerController:finishReached()
+  self.game_state.paused = true
+  self.game_state.ended = true
+  love.draw = self.finishScreen
 end
 
 function PlayerController:setSpeed(speed)
