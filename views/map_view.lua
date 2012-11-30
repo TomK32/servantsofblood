@@ -2,7 +2,7 @@
 MapView = class("MapView", View)
 MapView:include({
   map = nil,
-  tile_size = {x = 16, y = 16},
+  tile_size = {x = 24, y = 24},
   cursor_position = { x = 14, y = 11 },
   top_left = { x = 0, y = 0 }, -- offset
   draw_cursor = false,
@@ -70,7 +70,7 @@ MapView:include({
   centerAt = function(self, position)
     x = position.x - math.floor(self:tiles_x() / 2)
     y = position.y - math.floor(self:tiles_y() / 2)
-    if math.abs(self.top_left.x - x) > 5 or math.abs(self.top_left.y - y) > 5 then
+    if math.abs(self.top_left.x - x) >= 1 or math.abs(self.top_left.y - y) >= 1 then
       self.top_left = {x = x, y = y}
       self:fixTopLeft()
     end
