@@ -82,8 +82,9 @@ function PlayerController:updatePosition(dt)
   self.direction = nil
 
   if self.next_waypoint and
-      self.position.x == self.next_waypoint.position.x and
-      self.position.y == self.next_waypoint.position.y then
+      -- if next to waypoint we score that
+      math.abs(self.position.x - self.next_waypoint.position.x) <= 1 and
+      math.abs(self.position.y - self.next_waypoint.position.y) <= 1 then
     if self.next_waypoint.is_finish then
       self:finishReached()
     else
