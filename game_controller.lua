@@ -7,6 +7,7 @@ GameController = class("GameController", Controller)
 GameController:include({
   game_state = nil,
   gui_view = nil,
+  running_order_dt = 0,
 
   control_map = {
     keyboard = {
@@ -32,7 +33,12 @@ GameController:include({
     for i, r in ipairs(self.game_state.runners) do
       r:update(dt)
     end
-    self.game_state:updateRunningOrder()
+    if self.running_order_dt > 0.2 then
+      self.game_state:updateRunningOrder()
+      self.running_order_dt = 0
+    else
+      self.running_order_dt = self.running_order_dt + dt
+    end
   end,
 
   inspect = function(self)

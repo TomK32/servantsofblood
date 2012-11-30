@@ -1,4 +1,3 @@
-
 ListView = class("ListView", View)
 ListView:include({
   line_height = 20,

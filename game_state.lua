@@ -23,11 +23,12 @@ GameState:include({
     self.start = Entities.Waypoint({x = self.player.position.x, y = self.player.position.y}, 'Start')
     local last_waypoint = self.start
     self.map:place(last_waypoint)
-    dt_x = self.map.width / 50
-    dt_y = self.map.height / 50
+    local waypoints = 8
+    dt_x = self.map.width / waypoints
+    dt_y = self.map.height / waypoints
     local wp = {x = self.player.position.x, y = self.player.position.y}
-    for i = 1, 10 do
-      wp = {x = wp.x + math.random(dt_x) + i, y = wp.y + math.random(dt_y) + i}
+    for i = 3, waypoints do
+      wp = {x = math.floor((i-3) * dt_x + math.random(dt_x * 2)), y = math.floor(i/3 * dt_y + math.random(dt_y * 3))}
       local waypoint = Entities.Waypoint(wp, 'Waypoint ' .. i, false)
       self.map:place(waypoint)
       last_waypoint:setNextWaypoint(waypoint)
@@ -57,4 +58,13 @@ function GameState:updateRunningOrder()
     return a.distance_to_finish < b.distance_to_finish
   end
   table.sort(self.runners, sort)
+end
+
+function GameState:playerPosition()
+  self:updateRunningOrder()
+  for i, r in pairs(self.runners) do
+    if r == self.player then
+      return i
+    end
+  end
 end

@@ -15,6 +15,8 @@ function PlayerController:initialize(game_state, runner)
   self.sprint = false
   self.step_dt = 0 -- time needed to cross a field
   self.distance_to_finish = 0 -- distance to next waypoint + cumulative distance to finish
+  self.wrong_direction = false
+  self.closest_to_finish = 10000
 end
 
 
@@ -96,7 +98,7 @@ end
 function PlayerController:finishReached()
   self.game_state.paused = true
   self.game_state.ended = true
-  love.draw = self.finishScreen
+  love.draw = finishScreen
 end
 
 function PlayerController:setSpeed(speed)
@@ -106,16 +108,17 @@ function PlayerController:setSpeed(speed)
   self.speed = speed
 end
 
-function PlayerController.finishScreen()
-  love.graphics.print('AWESOME, you reached your target', love.graphics.getWidth() / 2 - 120, love.graphics.getHeight() / 2 - 5)
-  love.graphics.print('Press [q] to quit', love.graphics.getWidth() / 2 - 40, love.graphics.getHeight() / 2 + 25)
-end
-
 function PlayerController:setDistanceToFinish()
-  if self.next_waypoint.is_finish then
+  if self.next_waypoint.is_finish and not self.runner.running then
     self.distance_to_finish = 0
     return
   end
   self.distance_to_finish = math.floor(self.next_waypoint.distance_to_finish + self.next_waypoint:distanceTo(self.position))
+  if self.closest_to_finish < self.distance_to_finish then
+    self.wrong_direction = true
+  else
+    self.wrong_direction = false
+    self.closest_to_finish = self.distance_to_finish
+  end
 end
 

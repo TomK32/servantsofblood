@@ -7,8 +7,8 @@ Tile:include({
   entities = {},
   shade = nil,
 
-  initialize = function(self)
-    self.shade = math.random(100)
+  initialize = function(self, a, b)
+    self.shade = 100 + math.random(30)
     self.entities = {}
     --if math.random() > 0.2 then
     --  table.insert(self.entities, Entities.Ground())

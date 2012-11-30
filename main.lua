@@ -87,3 +87,9 @@ function love.draw()
   end
 end
 
+function finishScreen()
+  love.graphics.print('AWESOME, you finished on place ' .. game_state:playerPosition(), love.graphics.getWidth() / 2 - 120, love.graphics.getHeight() / 2 - 5)
+  love.graphics.print('Press [q] to quit', love.graphics.getWidth() / 2 - 40, love.graphics.getHeight() / 2 + 25)
+end
+
+
