@@ -22,6 +22,17 @@ Map:include({
     tile = self:getTile(entity.position)
     if tile then
       tile:addEntity(entity)
+    else
+      print("Entity out of bound " .. entity.position.x .. ":" .. entity.position.y)
+    end
+  end,
+
+  moveEntity = function(self, entity, old_position, new_position)
+    local tile = self:getTile(old_position)
+    if tile then
+      if tile:removeEntity(entity) then
+        self:place(entity, new_position)
+      end
     end
   end,
 

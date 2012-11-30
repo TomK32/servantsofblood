@@ -15,8 +15,20 @@ Tile:include({
     --end
   end,
 
-  addEntity = function(self,entity)
-    table.insert(self.entities, entity)
+  addEntity = function(self, entity)
+    if not self.entities[entity.class] then
+      self.entities[entity.class] = {}
+    end
+    table.insert(self.entities[entity.class], entity)
+  end,
+  removeEntity = function(self, entity)
+    for i, e in pairs(self.entities[entity.class]) do
+      if e == entity then
+        table.remove(self.entities[entity.class], i)
+        return true
+      end
+    end
+    return false
   end,
   entitiesByType = function (self, klass)
     local r = {}
@@ -27,13 +39,10 @@ Tile:include({
     end
     return r
   end,
-  jobs = function(self)
-    return self:entitiesByType(Job)
-  end,
-  workers = function(self)
-    return self:entitiesByType(Worker)
+  runners = function(self)
+    return (self.entities[Runner] or {})
   end,
   isWaypoint = function(self)
-    return #self:entitiesByType(Entities.Waypoint) > 0
+    return self.entities.Waypoint and #self.entities.Waypoint > 0
   end
 })

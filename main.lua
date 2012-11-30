@@ -2,6 +2,7 @@
 -- Fortress Middle Management Services
 require("lib/middleclass")
 require('table')
+require('entities/runner')
 require("player_controller")
 require("game_controller")
 require("game_state")

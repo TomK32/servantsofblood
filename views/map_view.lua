@@ -41,13 +41,9 @@ MapView:include({
             love.graphics.setColor( 0, tile.shade, tile.shade / 3, 255 )
           end
           love.graphics.rectangle('fill', x * self.tile_size.x, y * self.tile_size.y, self.tile_size.x, self.tile_size.y)
-          if #tile.entities > 0 then
-            love.graphics.setColor(200,200,200,255)
-          end
-          if #tile:workers() > 0 then
+          love.graphics.setColor(255,255,255,255)
+          if #tile:runners() > 0 then
             love.graphics.print( ':)', x * self.tile_size.x + 4, y * self.tile_size.y)
-          elseif #tile:jobs() > 0 then
-            love.graphics.print( '%', x * self.tile_size.x + 2, y * self.tile_size.y)
           end
         end
       end

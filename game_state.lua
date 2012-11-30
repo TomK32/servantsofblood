@@ -10,16 +10,18 @@ GameState:include({
   worker_spawner = nil,
   focus = 'inspector', -- main, inspector, jobs
   paused = false,
+  runner = nil,
 
   initialize = function(self)
     self.paused = true
     self.jobs = {}
-    self.player = PlayerController(self)
-    self.player.position = {x = 4, y = 4}
+    self.runner = Runner()
+    self.player = PlayerController(self, self.runner)
     self.job_spawner = JobSpawner()
     self.worker_spawner = WorkerSpawner()
-    self.map = Map(5000,500)
+    self.map = Map(5000,2000)
     self.map:randomize()
+    self.map:place(self.runner)
     self.workers = {}
     for i=1, 3 do
       worker = self.worker_spawner:create()

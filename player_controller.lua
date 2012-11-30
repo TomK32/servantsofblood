@@ -1,13 +1,14 @@
 
 PlayerController = class("PlayerController")
 
-function PlayerController:initialize(game_state)
+function PlayerController:initialize(game_state, runner)
   self.speed = 5 -- 5 gets you to the next field, 4 won't yet, 10 is two fields but exhausting
   self.stamina = 100
   self.stamina_dt = 0
   self.stamina_display = 0
   self.regeneration_rate = 1
-  self.position = {x = 0, y = 0}
+  self.runner = runner
+  self.position = runner.position
   self.tile_position = 0 -- depending on the speed the player might not yet reach the next field
   self.game_state = game_state
   self.offset = nil
@@ -70,7 +71,7 @@ function PlayerController:update(dt)
   self.position.y = self.position.y + (self.offset.y * offset_factor)
   self.game_state.map:fitIntoMap(self.position)
 
-  self.game_state.map:moveEntity(self, old_position, self.position)
+  self.game_state.map:moveEntity(self.runner, old_position, self.position)
   gui_main.map_view:centerAt(self.position)
 
   self.offset = nil
