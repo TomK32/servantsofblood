@@ -8,6 +8,7 @@ GameState:include({
   paused = false,
   runner = nil,
   runners = {},
+  start = nil,
 
   initialize = function(self)
     self.paused = true
@@ -18,8 +19,8 @@ GameState:include({
     self.map:randomize()
     self.map:place(self.runner)
     self.runners = {}
-    local last_waypoint = Entities.Waypoint({x = self.player.position.x, y = self.player.position.y}, 'Start')
-    self.player.next_waypoint = last_waypoint
+    self.start = Entities.Waypoint({x = self.player.position.x, y = self.player.position.y}, 'Start')
+    local last_waypoint = self.start
     self.map:place(last_waypoint)
     dt_x = self.map.width / 50
     dt_y = self.map.height / 50
@@ -31,16 +32,28 @@ GameState:include({
       last_waypoint:setNextWaypoint(waypoint)
       last_waypoint = waypoint
     end
-    self.player.runner.highlight = true
-    self.player.next_waypoint = self.player.next_waypoint.next_waypoint -- start is on the player's spot
     last_waypoint.is_finish = true
+    self.start:setDistanceToFinish()
+    self.player.runner.highlight = true
+    self.player.next_waypoint = self.start.next_waypoint -- start is on the player's spot
 
     for i = 1, 199 do
       ai_runner = AIController(self, Runner({x = math.random(3)+2, y = math.random(3)+2}))
-      ai_runner.next_waypoint = self.player.next_waypoint.next_waypoint
+      ai_runner.next_waypoint = self.start.next_waypoint
       table.insert(self.runners, ai_runner)
       self.map:place(ai_runner.runner)
     end
 
   end,
 })
+
+
+function GameState:updateRunningOrder()
+  for i, r in pairs(self.runners) do
+    r:setDistanceToFinish()
+  end
+  sort = function(a,b)
+    return a.distance_to_finish < b.distance_to_finish
+  end
+  table.sort(self.runners, sort)
+end

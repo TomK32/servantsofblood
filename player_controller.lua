@@ -14,6 +14,7 @@ function PlayerController:initialize(game_state, runner)
   self.direction = nil
   self.sprint = false
   self.step_dt = 0 -- time needed to cross a field
+  self.distance_to_finish = 0 -- distance to next waypoint + cumulative distance to finish
 end
 
 
@@ -109,3 +110,12 @@ function PlayerController.finishScreen()
   love.graphics.print('AWESOME, you reached your target', love.graphics.getWidth() / 2 - 120, love.graphics.getHeight() / 2 - 5)
   love.graphics.print('Press [q] to quit', love.graphics.getWidth() / 2 - 40, love.graphics.getHeight() / 2 + 25)
 end
+
+function PlayerController:setDistanceToFinish()
+  if self.next_waypoint.is_finish then
+    self.distance_to_finish = 0
+    return
+  end
+  self.distance_to_finish = self.next_waypoint.distance_to_finish + self.next_waypoint:distanceTo(self.position)
+end
+

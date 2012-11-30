@@ -32,6 +32,7 @@ GameController:include({
     for i, r in ipairs(self.game_state.runners) do
       r:update(dt)
     end
+    self.game_state:updateRunningOrder()
   end,
 
   inspect = function(self)
