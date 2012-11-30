@@ -12,7 +12,7 @@ GameState:include({
   initialize = function(self)
     self.paused = true
     self.jobs = {}
-    self.runner = Runner()
+    self.runner = Runner({x=4, y=4})
     self.player = PlayerController(self, self.runner)
     self.map = Map(5000,2000)
     self.map:randomize()

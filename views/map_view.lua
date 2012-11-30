@@ -33,20 +33,24 @@ MapView:include({
     tiles_y = math.floor(self.display.height / self.tile_size.y)
     for x = 0, tiles_x-1 do
       for y = 0, tiles_y-1 do
+        c_x = x * self.tile_size.x
+        c_y = y * self.tile_size.y
         tile = self.map:getTile({x = self.top_left.x + x + 1, y = self.top_left.y + y + 1})
         if tile then
           if tile:isWaypoint() then
-            love.graphics.setColor(200, 0, 0, 255)
+            love.graphics.setColor(255,0,0,255)
+            love.graphics.print('¶', c_x + 7, c_y +2)
+            love.graphics.setColor(255, 255, 255, 0)
           else
             love.graphics.setColor( 0, tile.shade, tile.shade / 3, 255 )
           end
-          love.graphics.rectangle('fill', x * self.tile_size.x, y * self.tile_size.y, self.tile_size.x, self.tile_size.y)
-          love.graphics.setColor(255,255,255,255)
+          love.graphics.rectangle('fill', c_x, c_y, self.tile_size.x, self.tile_size.y)
+          love.graphics.setColor(255,255,255,200)
           if tile:runnerHighlight() then
-            love.graphics.setColor(255,100,0,255)
+            love.graphics.setColor(255,0,0,255)
           end
           if #tile:runners() > 0 then
-            love.graphics.print( ':)', x * self.tile_size.x + 4, y * self.tile_size.y)
+            love.graphics.print( ':)', c_x + 4, c_y )
           end
         end
       end
