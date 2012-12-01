@@ -75,8 +75,7 @@ function love.keypressed(key, unicode)
 end
 
 function love.draw()
-  love.graphics.setColor(0,0,0,255)
-  love.graphics.rectangle('fill', 0,0, love.graphics.getWidth(), love.graphics.getHeight())
+  love.graphics.clear()
   gui_main:draw()
   love.graphics.setColor(255,255,255,255)
   love.graphics.setFont(love.graphics.newFont(14))
@@ -85,6 +84,9 @@ function love.draw()
   else
     love.graphics.print("FPS: "..love.timer.getFPS(), 10, 20)
   end
+  love.graphics.setFont(love.graphics.newFont(10))
+  love.graphics.print(love.graphics.getCaption(), love.graphics.getWidth(), love.graphics.getHeight(), 0, 1, 1, 176, 14)
+  love.graphics.setFont(love.graphics.newFont(14))
 end
 
 function finishScreen()
