@@ -24,7 +24,7 @@ FILENAME="$NAME-$GAME_VERSION-$REVISION"
 git archive HEAD -o "$BUILD/$FILENAME.zip"
 
 echo "game = {}; game.version = '${GAME_VERSION}-${REVISION}'" > "version.lua"
-zip "$BUILD/$FILENAME.zip" "version.lua"
+zip -q "$BUILD/$FILENAME.zip" "version.lua"
 mv "$BUILD/$FILENAME.zip" "$BUILD/$FILENAME.love"
 
 GAME="$BUILD/$FILENAME.love"
@@ -34,7 +34,7 @@ echo "Building $FILENAME"
 for arch in 'win-x86' 'win-x64'
 do
   A="$BUILD/love-$VERSION-$arch"
-  rm "$BUILD/$A"
+  if [ -f "$BUILD/$A" ]; then rm "$BUILD/$A"; fi
   unzip -q -d "$BUILD" "$A.zip"
   cat "$GAME" >> "$A/love.exe"
 
@@ -43,22 +43,23 @@ do
   cd "$BUILD/${FILENAME}_$arch"
 
   echo "$BUILD/${FILENAME}_$arch.zip"
-  rm "$BUILD/${FILENAME}_$arch.zip"
-  zip -r "$BUILD/${FILENAME}_$arch.zip" .
+  if [ -f "$BUILD/${FILENAME}_$arch.zip" ]; then rm "$BUILD/${FILENAME}_$arch.zip"; fi
+  zip -q -r "$BUILD/${FILENAME}_$arch.zip" .
   rm -R "$BUILD/${FILENAME}_$arch"
   cd "$R_PWD"
 done
 
 # OS X
-echo "$BUILD/${FILENAME}.app"
+echo "$BUILD/${FILENAME}.app.zip"
+if [ -d  "$BUILD/love.app" ]; then rm -R "$BUILD/love.app"; fi
 unzip -q -d "$BUILD" "$BUILD/love-$VERSION-macosx-ub.zip"
-rm -R "$BUILD/${FILENAME}.app"
 mv "$BUILD/love.app" "$BUILD/${FILENAME}.app"
 cp "$BUILD/$FILENAME.love" "$BUILD/$FILENAME.app/Contents/Resources/"
 patch "$BUILD/${FILENAME}.app/Contents/Info.plist" -i "$BUILD/osx.patch"
 R_PWD=`pwd`
 cd "$BUILD"
-zip -r "${FILENAME}_macosx.zip" "${FILENAME}.app"
+if [ -f "${FILENAME}_macosx.zip" ]; then rm "${FILENAME}_macosx.zip"; fi
+zip -q -r "${FILENAME}_macosx.zip" "${FILENAME}.app"
 cd $R_PWD
 rm -rf "$BUILD/$FILENAME.app"
 # Cleanup
