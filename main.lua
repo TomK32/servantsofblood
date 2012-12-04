@@ -1,5 +1,5 @@
 -- (C) 2012 Thomas R. Koll, <info@ananasblau.com>
--- Fortress Middle Management Services
+-- Cross Country Runner
 require("lib/middleclass")
 require('table')
 require('entities/runner')
@@ -16,10 +16,11 @@ require('job_spawner')
 function love.load()
   game_state = GameState()
   gui_main = GUIMain(game_state)
+  gui_main.font = love.graphics.newFont(14)
+  gui_main.small_font = love.graphics.newFont(10)
   game_controller = GameController(game_state, gui_main)
   dt_since_last_move = 1
 end
-
 function love.update(dt)
   local moved = false
   if game_state.focus == 'inspector' or game_state.focus == 'main' then
@@ -78,15 +79,19 @@ function love.draw()
   love.graphics.clear()
   gui_main:draw()
   love.graphics.setColor(255,255,255,255)
-  love.graphics.setFont(love.graphics.newFont(14))
+  love.graphics.setFont(gui_main.font)
   if game_state.paused then
     love.graphics.print('PAUSED', 10, 20)
   else
     love.graphics.print("FPS: "..love.timer.getFPS(), 10, 20)
   end
-  love.graphics.setFont(love.graphics.newFont(10))
+  drawCopyright()
+end
+
+function drawCopyright()
+  love.graphics.setFont(gui_main.small_font)
   love.graphics.print(love.graphics.getCaption(), love.graphics.getWidth(), love.graphics.getHeight(), 0, 1, 1, 176, 14)
-  love.graphics.setFont(love.graphics.newFont(14))
+  love.graphics.setFont(gui_main.font)
 end
 
 function finishScreen()
