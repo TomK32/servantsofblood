@@ -76,6 +76,12 @@ function love.keypressed(key, unicode)
 end
 
 function love.draw()
+  if game_state.paused then
+    -- TODO draw a background
+    gui_main.instructions_view:draw()
+    drawCopyright()
+    return
+  end
   love.graphics.clear()
   gui_main:draw()
   love.graphics.setColor(255,255,255,255)

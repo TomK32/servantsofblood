@@ -4,7 +4,7 @@ require('views/list_view')
 require('views/map_view')
 require('views/compass_view')
 require('views/runners_view')
-
+require('views/instructions_view')
 GUIMain = class("GUIMain")
 GUIMain:include({
 
@@ -26,6 +26,8 @@ GUIMain:include({
     self.map_view.display.width = self.display.x - 10
     self.map_view.display.height = love.graphics.getHeight() - 10
     self.map_view:drawCanvas()
+
+    self.instructions_view = InstructionsView()
 
     self.focused_view = nil
   end,

@@ -12,3 +12,15 @@ View:include({
   end
 })
 
+function View:setDisplay(display)
+  self.display = display
+  if display.align then
+    if display.align.x == 'center' then
+      display.x = love.graphics.getWidth() / 2 - display.width / 2
+    end
+    if display.align.y == 'center' then
+      display.y = love.graphics.getHeight() / 2 - display.height / 2
+    end
+  end
+end
+
