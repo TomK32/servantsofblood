@@ -36,7 +36,7 @@ ListView:include({
       list = self.list_entries
     end
     local lines = math.floor(self.display.height / self.line_height) - 2
-    for i = 1, lines do
+    for i = 1, math.min(lines, #list) do
       line = list[i]
       love.graphics.translate(0, self.line_height)
       self:drawLine(i, line)
