@@ -76,6 +76,11 @@ function love.keypressed(key, unicode)
 end
 
 function love.draw()
+  if not game_state.started then
+    start_menu_view:draw()
+    drawCopyright()
+    return
+  end
   if game_state.paused then
     -- TODO draw a background
     gui_main.instructions_view:draw()

@@ -12,10 +12,7 @@ GameController:include({
   control_map = {
     keyboard = {
       on_press = {
-        k = 'inspect',
         escape = 'escape',
-        j = 'jobs',
-        q = 'quit'
       }
     }
   },
@@ -41,29 +38,15 @@ GameController:include({
     end
   end,
 
-  inspect = function(self)
-    if self.game_state.focus == 'main' then
-      self:setFocus('inspector')
-    end
-    self.active_controller = self.inspector_controller
-  end,
-
   escape = function(self)
     self:setFocus('main')
   end,
 
   toggleGameStatePaused = function(self)
-    self.game_state.paused = self.game_state.paused == false
-  end,
-
-  quit = function(self)
-    love.event.push('quit')
-  end,
-
-  jobs = function(self)
-    if self.game_state.focus == 'main' then
-      self:setFocus('jobs')
+    if not self.game_state.started then
+      self.game_state.started = true
     end
+    self.game_state.paused = self.game_state.paused == false
   end,
 
   setFocus = function(self, focus)

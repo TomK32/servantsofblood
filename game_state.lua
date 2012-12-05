@@ -5,6 +5,7 @@ GameState:include({
   map = nil,
   player = nil,
   focus = 'inspector', -- main, inspector, jobs
+  started = false,
   paused = false,
   runner = nil,
   runners = {},
