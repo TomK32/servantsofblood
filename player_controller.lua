@@ -1,7 +1,31 @@
 
 PlayerController = class("PlayerController")
+PlayerController.input_alternatives = {
+  {
+    keyboard = {
+      up = 'up',
+      down = 'down',
+      left = 'left',
+      right = 'right',
+    }
+  },
+  {
+    keyboard = {
+      up = 'w',
+      down = 's',
+      left = 'a',
+      right = 'd'
+    }
+  },
+}
+PlayerController.movements = {
+  up    = { x = 0, y = - 1 },
+  down  = { x = 0, y =   1 },
+  left  = { x = - 1, y = 0 },
+  right = { x =   1, y = 0 },
+}
 
-function PlayerController:initialize(game_state, runner)
+function PlayerController:initialize(game_state, runner, player_number)
   self.speed = 5 -- 5 gets you to the next field, 4 won't yet, 10 is two fields but exhausting
   self.stamina = 100
   self.stamina_dt = 0
@@ -17,15 +41,44 @@ function PlayerController:initialize(game_state, runner)
   self.distance_to_finish = 0 -- distance to next waypoint + cumulative distance to finish
   self.wrong_direction = false
   self.closest_to_finish = 10000
+  if player_number then
+    self:setInputs(PlayerController.input_alternatives[player_number])
+  end
+  self.dt_since_input = 0
 end
 
+function PlayerController:setInputs(inputs)
+  self.inputs = {}
+  for direction, key in pairs(inputs.keyboard) do
+    self.inputs[key] = PlayerController.movements[direction]
+  end
+end
 
-function PlayerController:move(direction, sprint)
+function PlayerController:move(direction)
   self.direction = direction
-  self.sprint = sprint
+end
+
+function PlayerController:keydown(dt)
+  if self.dt_since_input > 0.1 then
+    local movement = {x = 0, y = 0}
+    local moved = false
+    for key, m in pairs(self.inputs) do
+      if love.keyboard.isDown(key) then
+        self.dt_since_input = 0
+        moved = true
+        movement.x = movement.x + m.x
+        movement.y = movement.y + m.y
+      end
+    end
+    if moved then
+      self:move(movement)
+    end
+  end
+  self.dt_since_input = self.dt_since_input + dt
 end
 
 function PlayerController:update(dt)
+  self:keydown(dt)
   self:updatePosition(dt)
 end
 function PlayerController:updatePosition(dt)
@@ -77,7 +130,8 @@ function PlayerController:updatePosition(dt)
   self.game_state.map:fitIntoMap(self.position)
 
   self.game_state.map:moveEntity(self.runner, old_position, self.position)
-  if game_state.runner == self.runner then
+  if self.inputs then
+    table_print(self.position)
     gui_main.map_view:centerAt(self.position)
   end
 

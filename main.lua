@@ -20,42 +20,12 @@ function love.load()
   gui_main.small_font = love.graphics.newFont(10)
   game_controller = GameController(game_state, gui_main)
   dt_since_last_move = 1
+  start_menu_view = StartMenuView()
 end
+
 function love.update(dt)
+  start_menu_view:update()
   local moved = false
-  if game_state.focus == 'inspector' or game_state.focus == 'main' then
-    if love.keyboard.isDown('up', 'down','left', 'right', 'kp1', 'kp2', 'kp3', 'kp4', 'kp6', 'kp7', 'kp8', 'kp9') then
-      -- FIXME move into playerController
-      if dt_since_last_move > 0.1 then
-        moves = 1
-        movements = {
-          up    = { x = 0, y = - moves },
-          kp8   = { x = 0, y = - moves },
-          down  = { x = 0, y =   moves },
-          kp2   = { x = 0, y =   moves },
-          left  = { x = - moves, y = 0 },
-          kp4   = { x = - moves, y = 0 },
-          right = { x =   moves, y = 0 },
-          kp6   = { x =   moves, y = 0 },
-          kp7   = { x = - moves, y = - moves },
-          kp9   = { x =   moves, y = - moves },
-          kp1   = { x = - moves, y =   moves },
-          kp3   = { x =   moves, y =   moves },
-        }
-        movement = {x = 0, y = 0}
-        for key, m in pairs(movements) do
-          if love.keyboard.isDown(key) then
-            dt_since_last_move = 0
-            moved = true
-            movement.x = movement.x + m.x
-            movement.y = movement.y + m.y
-          end
-        end
-        game_state.player:move(movement, love.keyboard.isDown('rshift', 'lshift'))
-      end
-    end
-    dt_since_last_move = dt_since_last_move + dt
-  end
 
   if game_state.paused then
     return

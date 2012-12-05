@@ -3,53 +3,57 @@ require('map')
 GameState = class("GameState")
 GameState:include({
   map = nil,
-  player = nil,
   focus = 'inspector', -- main, inspector, jobs
   started = false,
   paused = false,
-  runner = nil,
   runners = {},
   start = nil,
+  players = {}
+ })
 
-  initialize = function(self)
-    self.paused = true
-    self.jobs = {}
-    self.runner = Runner({x=4, y=4}, 'Thomas')
-    self.player = PlayerController(self, self.runner)
-    self.map = Map(5000,2000)
-    self.map:randomize()
-    self.map:place(self.runner)
-    self.runners = {}
-    table.insert(self.runners, self.player)
-    self.start = Entities.Waypoint({x = self.player.position.x, y = self.player.position.y}, 'Start')
-    local last_waypoint = self.start
-    self.map:place(last_waypoint)
-    local waypoints = 8
-    dt_x = self.map.width / waypoints
-    dt_y = self.map.height / waypoints
-    local wp = {x = self.player.position.x, y = self.player.position.y}
-    for i = 3, waypoints do
-      wp = {x = math.floor((i-3) * dt_x + math.random(dt_x * 2)), y = math.floor(i/3 * dt_y + math.random(dt_y * 3))}
-      local waypoint = Entities.Waypoint(wp, 'Waypoint ' .. i, false)
-      self.map:place(waypoint)
-      last_waypoint:setNextWaypoint(waypoint)
-      last_waypoint = waypoint
-    end
-    last_waypoint.is_finish = true
-    self.start:setDistanceToFinish()
-    self.player.runner.highlight = true
-    self.player.next_waypoint = self.start.next_waypoint -- start is on the player's spot
+function GameState:initialize()
+  self.map = Map(5000,2000)
+  self.map:randomize()
+end
 
-    for i = 1, 199 do
-      ai_runner = AIController(self, Runner({x = math.random(3)+2, y = math.random(3)+2}))
-      ai_runner.next_waypoint = self.start.next_waypoint
-      table.insert(self.runners, ai_runner)
-      self.map:place(ai_runner.runner)
-    end
+function GameState:start()
+  self.paused = true
+  self.started = true
+  self.runners = {}
+  self.start = Entities.Waypoint({x = 5, y = 5}, 'Start')
+  local last_waypoint = self.start
+  self.map:place(last_waypoint)
+  local waypoints = 8
+  dt_x = self.map.width / waypoints
+  dt_y = self.map.height / waypoints
+  local wp = {x = 5, y = 5}
+  for i = 3, waypoints do
+    wp = {x = math.floor((i-3) * dt_x + math.random(dt_x * 2)), y = math.floor(i/3 * dt_y + math.random(dt_y * 3))}
+    local waypoint = Entities.Waypoint(wp, 'Waypoint ' .. i, false)
+    self.map:place(waypoint)
+    last_waypoint:setNextWaypoint(waypoint)
+    last_waypoint = waypoint
+  end
+  last_waypoint.is_finish = true
+  self.start:setDistanceToFinish()
 
-  end,
-})
+  for i = 1, 199 do
+    ai_runner = AIController(self, Runner({x = math.random(3)+2, y = math.random(3)+2}))
+    ai_runner.next_waypoint = self.start.next_waypoint
+    table.insert(self.runners, ai_runner)
+    self.map:place(ai_runner.runner)
+  end
 
+end
+
+
+function GameState:addPlayer(name)
+  runner = Runner({x=4, y=4}, name, true)
+  player = PlayerController(self, runner, (#self.players + 1))
+  player.next_waypoint = self.start.next_waypoint -- start is on the player's spot
+  self.map:place(runner)
+  table.insert(self.players, player)
+end
 
 function GameState:updateRunningOrder()
   for i, r in pairs(self.runners) do

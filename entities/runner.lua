@@ -7,9 +7,10 @@ Runner:include({
   highlight = false,
 })
 
-function Runner:initialize(position, name)
+function Runner:initialize(position, name, highlight)
   self.position = position
   self.name = name
   self.running = true
+  self.highlight = highlight
 end
 

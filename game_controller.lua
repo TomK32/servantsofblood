@@ -26,7 +26,9 @@ GameController:include({
   end,
 
   update = function(self, dt)
-    self.game_state.player:update(dt)
+    for i, player in ipairs(self.game_state.players) do
+      player:update(dt)
+    end
     for i, r in ipairs(self.game_state.runners) do
       r:update(dt)
     end
