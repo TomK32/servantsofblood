@@ -38,6 +38,9 @@ function love.update(dt)
 end
 
 function love.keypressed(key, unicode)
+  if not game_state.started then
+    return
+  end
   dt_since_last_move = 1 -- to allow rapid key hitting
   if unicode >= 49 and unicode < 59 then
     game_state.player:setSpeed(unicode - 48)

@@ -26,6 +26,9 @@ GameController:include({
   end,
 
   update = function(self, dt)
+    if not game_state.started then
+      return
+    end
     for i, player in ipairs(self.game_state.players) do
       player:update(dt)
     end
