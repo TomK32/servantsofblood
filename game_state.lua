@@ -5,7 +5,7 @@ GameState:include({
   map = nil,
   focus = 'inspector', -- main, inspector, jobs
   started = false,
-  paused = false,
+  paused = true,
   runners = {},
   start = nil,
   players = {}
@@ -20,6 +20,7 @@ function GameState:start()
   self.paused = true
   self.started = true
   self.runners = {}
+  self.players = {}
   self.start = Entities.Waypoint({x = 5, y = 5}, 'Start')
   local last_waypoint = self.start
   self.map:place(last_waypoint)
@@ -47,12 +48,14 @@ function GameState:start()
 end
 
 
-function GameState:addPlayer(name)
+function GameState:addPlayer(name, keys)
   runner = Runner({x=4, y=4}, name, true)
-  player = PlayerController(self, runner, (#self.players + 1))
+  player = PlayerController(self, runner, keys)
   player.next_waypoint = self.start.next_waypoint -- start is on the player's spot
+  table.insert(self.runners, player)
   self.map:place(runner)
   table.insert(self.players, player)
+  gui_main:reset()
 end
 
 function GameState:updateRunningOrder()

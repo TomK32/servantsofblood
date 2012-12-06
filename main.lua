@@ -1,6 +1,7 @@
 -- (C) 2012 Thomas R. Koll, <info@ananasblau.com>
 -- Cross Country Runner
 require("lib/middleclass")
+gui = require("lib/quickie")
 require('table')
 require('entities/runner')
 require("player_controller")
@@ -12,6 +13,7 @@ require('worker')
 require('worker_spawner')
 require('job')
 require('job_spawner')
+require('views/start_menu_view')
 
 function love.load()
   game_state = GameState()
@@ -32,7 +34,7 @@ function love.update(dt)
   end
   gui_main:update(dt, moved)
   game_controller:update(dt)
-  gui_main.map_view:drawCanvas()
+  gui_main:drawMaps()
 end
 
 function love.keypressed(key, unicode)

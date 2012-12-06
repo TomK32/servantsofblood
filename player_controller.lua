@@ -1,7 +1,7 @@
 
 PlayerController = class("PlayerController")
 PlayerController.input_alternatives = {
-  {
+  arrows = {
     keyboard = {
       up = 'up',
       down = 'down',
@@ -9,7 +9,7 @@ PlayerController.input_alternatives = {
       right = 'right',
     }
   },
-  {
+  wasd = {
     keyboard = {
       up = 'w',
       down = 's',
@@ -81,6 +81,7 @@ function PlayerController:update(dt)
   self:keydown(dt)
   self:updatePosition(dt)
 end
+
 function PlayerController:updatePosition(dt)
   if math.abs(self.stamina_display - self.stamina) > 3 then
     self.stamina_display = self.stamina
@@ -131,8 +132,7 @@ function PlayerController:updatePosition(dt)
 
   self.game_state.map:moveEntity(self.runner, old_position, self.position)
   if self.inputs then
-    table_print(self.position)
-    gui_main.map_view:centerAt(self.position)
+    self.map_view:centerAt(self.position)
   end
 
   self.direction = nil
